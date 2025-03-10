@@ -1,0 +1,8 @@
+<RCC>
+	<qresource>
+		<file>ch.banana.costarica.import.cyberfuel.facturaprofesional.js</file>
+		<file>ch.banana.costarica.import.cyberfuel.facturaprofesional.classes.js</file>
+		<file>ch.banana.costarica.import.cyberfuel.facturaprofesional.manifest.json</file>
+		<file>../import.utilities.js</file>
+	</qresource>
+</RCC>

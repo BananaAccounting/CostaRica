@@ -1,0 +1,11 @@
+Reporte de compras general (facturas de compra) Movimientos de Pago;;;;;;;;;;;;;;;;
+Reporte:;CRCFECM;;;;;;;;;;;;;;;
+Empresa:;Cyberfuel S.A.;;Fecha del Reporte:;04-12-2024;;;;;;;;;;;;
+N° de identificación:;3101246627;;Usuario:;cmoreno@cyberfuel.com;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;
+Cantidad de registros:;2;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;
+DATOS GENERALES;;PROVEEDOR;;;DOCUMENTO;;DATOS DEL PAGO;;;EQUIVALENTE EN MONEDA DEL DOC.;;;;;;
+Fecha de emisión;Actividad económica (receptor);Tipo de identificación;N° de identificación;Nombre;Tipo de documento;N° de documento;Método;Moneda;Monto del pago;Tipo de cambio;Monto;Banco;N° de referencia;N° de autorización;Últ. 4 dígitos;Notas
+2024-10-07;SERVICIO DE RESTAURANTE, CAFETERIAS, SODAS Y OTROS EXPENDIOS DE COMIDA;Cédula Jurídica;3102854191;113-INVERSIONES PASSARELLI DEL OESTE SOCIEDAD DE RESPONSABILIDAD LIMITADA;Factura de compra;00100001080000000070;"Transferencia - Dep&oacute;sito bancario";USD;7’119.00000;;7’119.00000;Promerica $;567657091;;;
+2024-10-07;SERVICIO DE RESTAURANTE, CAFETERIAS, SODAS Y OTROS EXPENDIOS DE COMIDA;Cédula Física;106760458;97-ALFREDO DE LOS ANGELES PALACIOS ALVARADO;Factura de compra;00100001080000000071;;;;;;;;;;

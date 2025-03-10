@@ -1,0 +1,15 @@
+{
+    "category": "productivity",
+    "country": "Costa Rica",
+    "countryCode": "cr",
+    "description": "Factura Profesional - Import invoices (*.csv)",
+    "description.en": "Factura Profesional - Import invoices (*.csv)",
+    "description.es": "Factura Profesional - Importación de facturas (*.csv)",
+    "id": "ch.banana.costarica.import.cyberfuel.facturaprofesional",
+    "language": "en",
+    "publisher": "Banana.ch",
+    "title": "Factura Profesional - Import invoices (*.csv)",
+    "title.en": "Factura Profesional - Import invoices (*.csv)",
+    "title.es": "Factura Profesional - Importación de facturas (*.csv)",
+    "version": "1.0"
+}
