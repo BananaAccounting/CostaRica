@@ -20,6 +20,7 @@
 // @description.es = Factura Profesional - Importación de facturas (*.csv)
 // @inputdatasource = opendirdialog
 // @inputfilefilter = *.csv
+// @inputencoding = latin1
 // @doctype = 100.*
 // @docproperties =
 // @task = import.file
@@ -60,9 +61,24 @@ var ImportFacturaProfesionalInvoices = class ImportFacturaProfesionalInvoices {
         this.filesData = filesData;
         this.existingCustomersInvoices = this.banDoc.invoicesCustomers(); // Journal table with all data.
         this.existingSuppliersInvoices = this.banDoc.invoicesSuppliers(); // Journal table with all data.
+        this.headersRowIndex = 8;
+        //Files content
         this.CRVGContent = this.getFileContent("CRVG");
+        this.CRVGMContent = this.getFileContent("CRVGM");
+        this.CRCFECContent = this.getFileContent("CRCFEC");
+        this.CRCFECMContent = this.getFileContent("CRCFECM");
         this.CRCGContent = this.getFileContent("CRCG");
+        this.CRCGMContent = this.getFileContent("CRCGM");
         this.CRGSEContent = this.getFileContent("CRGSE");
+        // Map all the content into the Classes created to manage each report.
+        this.CRVGData = this.mapDataCRVG();
+        this.CRVGMData = this.mapDataCRVGM();
+        this.CRCFECData = this.mapDataCRCFEC();
+        this.CRCFECMData = this.mapDataCRCFECM();
+        this.CRCGData = this.mapDataCRCG();
+        this.CRCGMData = this.mapDataCRCGM();
+        this.CRGSEData = this.mapDataCRGSE();
+        this.CRGSEMData = this.mapDataCRGSEM();
     }
 
     getDocumentChange() {
@@ -86,51 +102,95 @@ var ImportFacturaProfesionalInvoices = class ImportFacturaProfesionalInvoices {
         let existingInvoicesSet = new Set();
         this.getExistingInvoicesNumbersList(this.existingSuppliersInvoices, existingInvoicesSet);
         let newInvoicesCus = [];
-        let newInvoicesESup = [];
-        let newInvoicesNESup = [];
+        let newInvoicesCRCFEC = [];
+        let newInvoicesCRCG = [];
+        let newInvoicesCRGSE = [];
 
         newInvoicesCus = this.getNewInvoicesListCustomers(existingInvoicesSet);
-        newInvoicesESup = this.getNewInvoicesListSuppliersCRCG(existingInvoicesSet);
-        newInvoicesNESup = this.getNewInvoicesListSuppliersCRGSE(existingInvoicesSet);
+        newInvoicesCRCFEC = this.getNewInvoicesListSuppliersCRCFEC(existingInvoicesSet);
+        newInvoicesCRCG = this.getNewInvoicesListSuppliersCRCG(existingInvoicesSet);
+        newInvoicesCRGSE = this.getNewInvoicesListSuppliersCRGSE(existingInvoicesSet);
 
-        /** Devo uniformare i dati, in maniera che posso lavorare con un solo formato "Fattura".
-         * Posso creare una classe InvoiceBanana che contiene tutti i dati necessari per creare una 
-         * fattura in Banana, indipendentemente dal tipo di fattura, che posso gestire in maniera flessibile.
-         * posso creare un metodo di mappatura per ogni tipologia di fattura (posso farle a livello di classe di report)
-         * mapInvoiceBananaFromCRVG (invoiceObj, isNew), mapInvoiceBananaFromCRCG (invoiceObj, isNew), mapInvoiceBananaFromCRGSE (invoiceObj, isNew)
-         * Per ogni fattura identificare lo stato: 
-         * - Open: Per identificare che una fattura non sia ancora stata pagata, controllare se esiste un pagamento associato controllando nel report dei pagamenti/estratto conto.
-         * - Paid: Per identificare che una fattura sia stata pagata, controllare se esiste un pagamento associato controllando nel report dei pagamenti/estratto conto.
-         * - Partial: Per identificare se una fattura è stata pagata parzialmente, controllare se esiste un pagamento associato controllando nel report dei pagamenti/estratto conto, 
-         * se corrisponde al totale
-         * Anche i metodi appena citati dovrebbero essere implementatati a livello di classe di report perche per ogni report, i file di controllo possono variare.
-         * Ad esempio per verificare se una fattura di vendita è stata pagata, devo controllare il report dei pagamenti delle vendite
-         * */
+
+        let invoicesToAdd = [];
+
+        // Map the new customers invoices
+        for (let i = 0; i < newInvoicesCus.length; i++) {
+            invoicesToAdd.push(CRVG.mapToInvoice(newInvoicesCus[i]));
+        }
+
+        // Map the new suppliers electronic invoices
+        for (let i = 0; i < newInvoicesCRCFEC.length; i++) {
+            invoicesToAdd.push(CRCFEC.mapToInvoice(newInvoicesCRCFEC[i], this.CRCFECMData)); // Pass CRCFECMData to define if a invoice has been paid.
+        }
+
+        Banana.Ui.showText(JSON.stringify(invoicesToAdd));
+
+        // Map the new suppliers general invoices
+        for (let i = 0; i < newInvoicesCRCG.length; i++) {
+            invoicesToAdd.push(CRCG.mapToInvoice(newInvoicesCRCG[i], this.CRCGMData)); // Pass CRCGMData to define if a invoice has been paid. 12.03 testare classe CRCGM e vedere di fare tutte le altre classi, riprendeee da creazione classi (ora non runna)
+        }
+
+        // Map the new suppliers general invoices (without electronic format)
+        for (let i = 0; i < newInvoicesCRGSE.length; i++) {
+            invoicesToAdd.push(CRGSE.mapToInvoice(newInvoicesCRGSE[i]));
+        }
+
     }
+
+    mapDataCRVG() {
+        return this.CRVGContent.slice(this.headersRowIndex + 1).map(row => CRVG.fromCsvRow(row));
+    }
+
+    mapDataCRVGM() {
+        return this.CRVGMContent.slice(this.headersRowIndex + 1).map(row => CRVGM.fromCsvRow(row)); // creare classe mappatura  CRVGM 12.03.
+    }
+
+    mapDataCRCFEC() {
+        return this.CRCFECContent.slice(this.headersRowIndex + 1).map(row => CRCFEC.fromCsvRow(row));
+    }
+
+    mapDataCRCFECM() {
+        return this.CRCFECMContent.slice(this.headersRowIndex + 1).map(row => CRCFECM.fromCsvRow(row));
+    }
+
+    mapDataCRCG() {
+        return this.CRCGContent.slice(this.headersRowIndex + 1).map(row => CRCFEC.fromCsvRow(row));
+    }
+
+    mapDataCRCGM() {
+        return this.CRCGMContent.slice(this.headersRowIndex + 1).map(row => CRCGM.fromCsvRow(row));
+    }
+
+    mapDataCRGSE() {
+        return this.CRGSEContent.slice(this.headersRowIndex + 1).map(row => CRGSE.fromCsvRow(row));
+    }
+
+    mapDataCRGSEM() {
+        return this.CRGSEMContent.slice(this.headersRowIndex + 1).map(row => CRGSEM.fromCsvRow(row)); // creare classe mappatura  CRVGM 12.03.
+    }
+
+    /**
+     * Returns a list of CRCFEC objects containing the new invoices to be imported.
+     * Works with invoices from customers received in electronic format (CRCFEC)
+     */
+    getNewInvoicesListSuppliersCRCFEC(existingInvoicesSet) {
+        return this.CRCFECData.filter(invoice => {
+            const uniqueKey = `${invoice.invoiceId}|${invoice.supplierId}`;
+            return !existingInvoicesSet.has(uniqueKey) && invoice.documentType === "Factura de compra";
+        });
+    }
+
 
     /**
      * Returns a list of CRCG objects containing the new invoices to be imported.
      * Works with invoices from suppliers received in electronic format (CRCG)
      */
     getNewInvoicesListSuppliersCRCG(existingInvoicesSet) {
-
-        const headerRowIndex = 8;
-        const counterpartyIdColumn = 3;
-        const invoiceIdColumn = 6;
-        const docType = 5;
-
-        const newInvoices = this.CRCGContent.slice(headerRowIndex + 1).filter(row => {
-            const invoiceId = row[invoiceIdColumn];
-            const counterpartyId = row[counterpartyIdColumn];
-            const uniqueKey = `${invoiceId}|${counterpartyId}`;
-            let toMap = false;
-            if (!existingInvoicesSet.has(uniqueKey) && row[docType] == "Factura")
-                toMap = true;
-
-            return toMap;
-        }).map(row => CRCG.fromCsvRow(row));
-
-        return newInvoices;
+        return this.CRCGData.filter(invoice => {
+            const uniqueKey = `${invoice.invoiceId}|${invoice.supplierId}`;
+            return !existingInvoicesSet.has(uniqueKey) && invoice.documentType === "Factura";
+        });
     }
 
     /**
@@ -138,45 +198,22 @@ var ImportFacturaProfesionalInvoices = class ImportFacturaProfesionalInvoices {
     * Works with invoices from suppliers NOT received in electronic format (CRGSE)
     */
     getNewInvoicesListSuppliersCRGSE(existingInvoicesSet) {
-        const headerRowIndex = 8;
-        const counterpartyIdColumn = 3;
-        const invoiceIdColumn = 3; // Eventualmente usare colonna "N gasto", forse si tratta di un identificativo alternativo interno loro.
-
-        const newInvoices = this.CRGSEContent.slice(headerRowIndex + 1).filter(row => {
-            const invoiceId = row[invoiceIdColumn];
-            const counterpartyId = row[counterpartyIdColumn];
-            const uniqueKey = `${invoiceId}|${counterpartyId}`;
-
+        return this.CRGSEData.filter(invoice => {
+            const uniqueKey = `${invoice.invoiceId}|${invoice.supplierId}`;
             return !existingInvoicesSet.has(uniqueKey);
-        }).map(row => CRGSE.fromCsvRow(row));
-
-        return newInvoices;
+        });
     }
 
     /**
-     * Returns a list of “Invoice” objects containing the new invoices to be imported.
+     * Returns a list of CRVG objects containing the new invoices to be imported.
      * We check for the new invoices for costumers into the following report:
      * - CRVG (Costa Rica, Ventas Generales)
      */
     getNewInvoicesListCustomers(existingInvoicesSet) {
-
-        const headerRowIndex = 8;
-        const counterpartyIdColumn = 6;
-        const invoiceIdColumn = 9;
-        const docType = 8;
-
-        const newInvoices = this.CRVGContent.slice(headerRowIndex + 1).filter(row => {
-            const invoiceId = row[invoiceIdColumn];
-            const counterpartyId = row[counterpartyIdColumn];
-            const uniqueKey = `${invoiceId}|${counterpartyId}`;
-            let toMap = false;
-            if (!existingInvoicesSet.has(uniqueKey) && row[docType] == "Factura")
-                toMap = true;
-
-            return toMap;
-        }).map(row => CRVG.fromCsvRow(row));
-
-        return newInvoices;
+        return this.CRVGData.filter(invoice => {
+            const uniqueKey = `${invoice.invoiceId}|${invoice.customerId}`;
+            return !existingInvoicesSet.has(uniqueKey) && invoice.documentType === "Factura";
+        });
     }
 
     /** Ritorna l'array con i dati del file letto.*/
