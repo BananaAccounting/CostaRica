@@ -20,7 +20,7 @@
 // @description.es = Factura Profesional - Importación de facturas (*.csv)
 // @inputdatasource = opendirdialog
 // @inputfilefilter = *.csv
-// @inputencoding = latin1
+// @inputencoding = utf-8
 // @doctype = 100.*
 // @docproperties =
 // @task = import.file
@@ -70,6 +70,7 @@ var ImportFacturaProfesionalInvoices = class ImportFacturaProfesionalInvoices {
         this.CRCGContent = this.getFileContent("CRCG");
         this.CRCGMContent = this.getFileContent("CRCGM");
         this.CRGSEContent = this.getFileContent("CRGSE");
+        this.CRGSEMContent = this.getFileContent("CRGSEM");
         // Map all the content into the Classes created to manage each report.
         this.CRVGData = this.mapDataCRVG();
         this.CRVGMData = this.mapDataCRVGM();
@@ -124,12 +125,12 @@ var ImportFacturaProfesionalInvoices = class ImportFacturaProfesionalInvoices {
             invoicesToAdd.push(CRCFEC.mapToInvoice(newInvoicesCRCFEC[i], this.CRCFECMData)); // Pass CRCFECMData to define if a invoice has been paid.
         }
 
-        Banana.Ui.showText(JSON.stringify(invoicesToAdd));
-
         // Map the new suppliers general invoices
         for (let i = 0; i < newInvoicesCRCG.length; i++) {
-            invoicesToAdd.push(CRCG.mapToInvoice(newInvoicesCRCG[i], this.CRCGMData)); // Pass CRCGMData to define if a invoice has been paid. 12.03 testare classe CRCGM e vedere di fare tutte le altre classi, riprendeee da creazione classi (ora non runna)
+            invoicesToAdd.push(CRCG.mapToInvoice(newInvoicesCRCG[i], this.CRCGMData)); // Pass CRCGMData to define if a invoice has been paid.
         }
+
+        Banana.Ui.showText(JSON.stringify(invoicesToAdd));
 
         // Map the new suppliers general invoices (without electronic format)
         for (let i = 0; i < newInvoicesCRGSE.length; i++) {
@@ -143,7 +144,7 @@ var ImportFacturaProfesionalInvoices = class ImportFacturaProfesionalInvoices {
     }
 
     mapDataCRVGM() {
-        return this.CRVGMContent.slice(this.headersRowIndex + 1).map(row => CRVGM.fromCsvRow(row)); // creare classe mappatura  CRVGM 12.03.
+        return this.CRVGMContent.slice(this.headersRowIndex + 1).map(row => CRVGM.fromCsvRow(row));
     }
 
     mapDataCRCFEC() {
@@ -155,7 +156,7 @@ var ImportFacturaProfesionalInvoices = class ImportFacturaProfesionalInvoices {
     }
 
     mapDataCRCG() {
-        return this.CRCGContent.slice(this.headersRowIndex + 1).map(row => CRCFEC.fromCsvRow(row));
+        return this.CRCGContent.slice(this.headersRowIndex + 1).map(row => CRCG.fromCsvRow(row));
     }
 
     mapDataCRCGM() {
@@ -167,7 +168,7 @@ var ImportFacturaProfesionalInvoices = class ImportFacturaProfesionalInvoices {
     }
 
     mapDataCRGSEM() {
-        return this.CRGSEMContent.slice(this.headersRowIndex + 1).map(row => CRGSEM.fromCsvRow(row)); // creare classe mappatura  CRVGM 12.03.
+        return this.CRGSEMContent.slice(this.headersRowIndex + 1).map(row => CRGSEM.fromCsvRow(row));
     }
 
     /**

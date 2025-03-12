@@ -77,14 +77,8 @@ var CRVG = class CRVG {
      * @returns {CRVG} - An instance of CRVG.
      */
     static fromCsvRow(csvRow) {
-        return new CRVG(
-            csvRow[0], csvRow[1], csvRow[2], csvRow[3], csvRow[4], csvRow[5], csvRow[6],
-            csvRow[7], csvRow[8], csvRow[9], csvRow[10], csvRow[11], csvRow[12], csvRow[13],
-            csvRow[14], csvRow[15], csvRow[16], csvRow[17], csvRow[18], csvRow[19], csvRow[20],
-            csvRow[21], csvRow[22], csvRow[23], csvRow[24], csvRow[25], csvRow[26], csvRow[27],
-            csvRow[28], csvRow[29], csvRow[30], csvRow[31], csvRow[32], csvRow[33], csvRow[34],
-            csvRow[35], csvRow[36], csvRow[37]
-        );
+        // Use "spread" operator. Instaed of doing "csvRow[0], csvRow[1], ..." with each colum, as the order of the csv columns matches the constructor.
+        return new CRVG(...csvRow);
     }
 
     /**
@@ -131,6 +125,45 @@ var CRVG = class CRVG {
         return "";
     }
 }
+
+// The class "CRVGM" defines the structure of customer payments from Ventas-Generales-Movimientos-de-Pago.csv.
+var CRVGM = class CRVGM {
+    constructor(
+        paymentDate, branch, terminal, idType, customerId, customerName, invoiceIssueDate, invoiceDueDate,
+        invoiceId, invoiceCurrency, invoiceExchangeRate, invoiceTotal, invoiceStatus, paymentMethod,
+        paymentCurrency, amountPaid, paymentExchangeRate, equivalentAmount, bank, paymentReference,
+        authorizationNumber, last4Digits, notes
+    ) {
+        this.paymentDate = paymentDate;
+        this.branch = branch;
+        this.terminal = terminal;
+        this.idType = idType;
+        this.customerId = customerId;
+        this.customerName = customerName;
+        this.invoiceIssueDate = invoiceIssueDate;
+        this.invoiceDueDate = invoiceDueDate;
+        this.invoiceId = invoiceId;
+        this.invoiceCurrency = invoiceCurrency;
+        this.invoiceExchangeRate = invoiceExchangeRate;
+        this.invoiceTotal = invoiceTotal;
+        this.invoiceStatus = invoiceStatus;
+        this.paymentMethod = paymentMethod;
+        this.paymentCurrency = paymentCurrency;
+        this.amountPaid = amountPaid;
+        this.paymentExchangeRate = paymentExchangeRate;
+        this.equivalentAmount = equivalentAmount;
+        this.bank = bank;
+        this.paymentReference = paymentReference;
+        this.authorizationNumber = authorizationNumber;
+        this.last4Digits = last4Digits;
+        this.notes = notes;
+    }
+
+    static fromCsvRow(csvRow) {
+        return new CRVGM(...csvRow); // Use "spread" operator.
+    }
+};
+
 
 // The class "CRCFEC" defines the structure of supplier invoices from Compras-FEC.csv.
 var CRCFEC = class CRCFEC {
@@ -180,13 +213,7 @@ var CRCFEC = class CRCFEC {
      * @returns {CRCFEC} - An instance of CRCFEC.
      */
     static fromCsvRow(csvRow) {
-        return new CRCFEC(
-            csvRow[0], csvRow[1], csvRow[2], csvRow[3], csvRow[4], csvRow[5], csvRow[6],
-            csvRow[7], csvRow[8], csvRow[9], csvRow[10], csvRow[11], csvRow[12], csvRow[13],
-            csvRow[14], csvRow[15], csvRow[16], csvRow[17], csvRow[18], csvRow[19], csvRow[20],
-            csvRow[21], csvRow[22], csvRow[23], csvRow[24], csvRow[25], csvRow[26], csvRow[27],
-            csvRow[28], csvRow[29], csvRow[30]
-        );
+        return new CRCFEC(...csvRow);
     }
 
     /**
@@ -216,20 +243,18 @@ var CRCFEC = class CRCFEC {
      * @returns {string} - The corresponding InvoiceState.
      */
     static setInvoiceState(invoiceData, paymentsData) {
-        switch (true) {
-            case invoiceData.documentType === "Nota de crédito":
-                return InvoiceState.CANCELLED;
-            case paymentsData.some(payment => payment.invoiceId === invoiceData.invoiceId):  // Se l'invoiceId è in CRCFECM, è pagata.
-                return InvoiceState.PAID;
-            case invoiceData.paymentCondition === "Contado":
-                return InvoiceState.PAID;
-            case invoiceData.paymentCondition === "Crédito":
-                return InvoiceState.OPEN;
-            default:
-                Banana.console.log(`Warning: Unknown invoice status for invoice ${invoiceId}. Defaulting to "Open".`);
-                return InvoiceState.OPEN;
-        }
+        if (invoiceData.documentType === "Nota de crédito")
+            return InvoiceState.CANCELLED;
+        if (paymentsData.some(payment => payment.invoiceId === invoiceData.invoiceId))
+            return InvoiceState.PAID;
+        if (invoiceData.paymentCondition === "Contado")
+            return InvoiceState.PAID;
+        if (invoiceData.paymentCondition === "Crédito")
+            return InvoiceState.OPEN;
+        Banana.console.log(`Warning: Unknown invoice status for invoice ${invoiceData.invoiceId}. Defaulting to "Open".`);
+        return InvoiceState.OPEN;
     }
+
 
     /**
     * Determines the appropriate VAT code based on the CRCFEC invoice data.
@@ -279,25 +304,7 @@ var CRCFECM = class CRCFECM {
      * @returns {CRCFECM} - An instance of CRCFECM.
      */
     static fromCsvRow(csvRow) {
-        return new CRCFECM(
-            csvRow[0],  // Payment Date
-            csvRow[1],  // Economic Activity
-            csvRow[2],  // ID Type
-            csvRow[3],  // Supplier ID
-            csvRow[4],  // Supplier Name
-            csvRow[5],  // Document Type
-            csvRow[6],  // Invoice ID
-            csvRow[7],  // Payment Method
-            csvRow[8],  // Currency
-            csvRow[9],  // Amount Paid
-            csvRow[10], // Exchange Rate
-            csvRow[11], // Equivalent Amount
-            csvRow[12], // Bank
-            csvRow[13], // Payment Reference
-            csvRow[14], // Authorization Number
-            csvRow[15], // Last 4 Digits
-            csvRow[16]  // Notes
-        );
+        return new CRCFECM(...csvRow);
     }
 
     /**
@@ -369,27 +376,21 @@ var CRCG = class CRCG {
      * @returns {CRCG} - An instance of CRCG.
      */
     static fromCsvRow(csvRow) {
-        return new CRCG(
-            csvRow[0], csvRow[1], csvRow[2], csvRow[3], csvRow[4], csvRow[5], csvRow[6],
-            csvRow[7], csvRow[8], csvRow[9], csvRow[10], csvRow[11], csvRow[12], csvRow[13],
-            csvRow[14], csvRow[15], csvRow[16], csvRow[17], csvRow[18], csvRow[19], csvRow[20],
-            csvRow[21], csvRow[22], csvRow[23], csvRow[24], csvRow[25], csvRow[26], csvRow[27],
-            csvRow[28], csvRow[29], csvRow[30], csvRow[31], csvRow[32], csvRow[33], csvRow[34],
-            csvRow[35], csvRow[36]
-        );
+        return new CRCG(...csvRow);
     }
 
     /**
     * Static method to map a CRCG object to an Invoice object.
     * @param {CRCG} invoiceData - An instance of CRCG.
+    * @param {CRCG} paymentsData - A List of of CRCGM
     * @returns {Invoice} - An instance of Invoice formatted for Banana.
     */
-    static mapToInvoice(invoiceData) {
+    static mapToInvoice(invoiceData, paymentsData = []) {
         return new Invoice(
             invoiceData.issueDate,  // InvoiceDate: Date of the invoice (YYYY-MM-DD)
             "20",  // InvoiceType: Default type for supplier invoices in Banana.
             invoiceData.invoiceId,  // InvoiceNumber: Invoice document number.
-            this.setInvoiceState(invoiceData.status),
+            this.setInvoiceState(invoiceData, paymentsData),
             `Supplier Invoice ${invoiceData.invoiceId} - ${invoiceData.supplierName}`, // InvoiceDescription.
             "5000",  // InvoiceDebitAccount: Default expense account (modify if needed)
             invoiceData.supplierId,  // InvoiceCreditAccount: Supplier ID (Accounts table)
@@ -400,22 +401,23 @@ var CRCG = class CRCG {
 
     /**
     * Maps CRCG invoice status to a valid InvoiceState in Banana.
-    * @param {string} saleCondition - The sale condition from CRCG ("Contado", "Crédito", "Arrendamiento con Opción de Compra").
-    * @param {string} receptionMessage - The reception message (if available).
+     * @param {CRCG} invoiceData - The full invoice object (needed for payment conditions).
+     * @param {CRCGM} paymentsData - List of all paid invoices in CRCGM report file.
     * @returns {string} - The corresponding InvoiceState.
     */
-    static setInvoiceState(saleCondition) {
-        switch (saleCondition) {
-            case "Contado":
-                return InvoiceState.PAID;  // Paid
-            case "Crédito":
-                return InvoiceState.OPEN;  // Open (Credit)
-            case "Arrendamiento con Opción de Compra":
-                return InvoiceState.OPEN;  // Leasing is considered Open until fully paid
-            default:
-                return InvoiceState.OPEN;
-        }
+    static setInvoiceState(invoiceData, paymentsData) {
+        if (invoiceData.documentType === "Nota de crédito")
+            return InvoiceState.CANCELLED
+        if (paymentsData.some(payment => payment.invoiceId === invoiceData.invoiceId))
+            return InvoiceState.PAID
+        if (invoiceData.paymentCondition === "Contado")
+            return InvoiceState.PAID
+        if (invoiceData.paymentCondition === "Crédito")
+            return InvoiceState.OPEN
+        Banana.console.log(`Warning: Unknown invoice status: ${invoiceData.paymentCondition}, for invoice ${invoiceData.invoiceId}. Defaulting to "Open".`)
+        return InvoiceState.OPEN
     }
+
 
     /**
     * Static method to find the VAT code used in the invoice.
@@ -463,25 +465,7 @@ var CRCGM = class CRCGM {
      * @returns {CRCGM} - An instance of CRCGM.
      */
     static fromCsvRow(csvRow) {
-        return new CRCGM(
-            csvRow[0],  // Payment Date
-            csvRow[1],  // Reception Date
-            csvRow[2],  // ID Type
-            csvRow[3],  // Supplier ID
-            csvRow[4],  // Supplier Name
-            csvRow[5],  // Document Type
-            csvRow[6],  // Invoice ID
-            csvRow[7],  // Payment Method
-            csvRow[8],  // Currency
-            csvRow[9],  // Amount Paid
-            csvRow[10], // Exchange Rate
-            csvRow[11], // Equivalent Amount
-            csvRow[12], // Bank
-            csvRow[13], // Payment Reference
-            csvRow[14], // Authorization Number
-            csvRow[15], // Last 4 Digits
-            csvRow[16]  // Notes
-        );
+        return new CRCGM(...csvRow);
     }
 
     /**
@@ -521,11 +505,7 @@ var CRGSE = class CRGSE {
      * @returns {CRGSE} - An instance of CRGSE.
      */
     static fromCsvRow(csvRow) {
-        return new CRGSE(
-            csvRow[0], csvRow[1], csvRow[2], csvRow[3], csvRow[4],
-            csvRow[5], csvRow[6], csvRow[7], csvRow[8], csvRow[9],
-            csvRow[10], csvRow[11]
-        );
+        return new CRGSE(...csvRow);
     }
     /**
     * Static method to map a CRGSE object to an Invoice object.
@@ -549,6 +529,32 @@ var CRGSE = class CRGSE {
         //....
     }
 }
+
+// The class "CRGSEM" defines the structure of supplier payments from Gastos-sin-Soporte-Electrónico-Movimientos-de-Pago.csv.
+var CRGSEM = class CRGSEM {
+    constructor(
+        recordDate, updateDate, idType, supplierId, supplierName, expenseId, expenseDate, currency,
+        amountPaid, paymentType, paymentCode, paymentDescription
+    ) {
+        this.recordDate = recordDate;
+        this.updateDate = updateDate;
+        this.idType = idType;
+        this.supplierId = supplierId;
+        this.supplierName = supplierName;
+        this.expenseId = expenseId;
+        this.expenseDate = expenseDate;
+        this.currency = currency;
+        this.amountPaid = amountPaid;
+        this.paymentType = paymentType;
+        this.paymentCode = paymentCode;
+        this.paymentDescription = paymentDescription;
+    }
+
+    static fromCsvRow(csvRow) {
+        return new CRGSEM(...csvRow);
+    }
+};
+
 
 // The class "Invoice" defines the structure of the invoice to be imported into Banana. Follow the columns used in Banana to record an invoice.
 var Invoice = class Invoice {
