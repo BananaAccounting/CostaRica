@@ -1,10 +1,10 @@
-Reporte de Ventas Generales Movimientos de Pago;;;;;;;;;;;;;;;;;;;;;;
+ï»¿Reporte de Ventas Generales Movimientos de Pago;;;;;;;;;;;;;;;;;;;;;;
 Reporte:;CRVGM;;;;;;;;;;;;;;;;;;;;;
 Empresa:;Inmobiliaria Ilanca S.A.;;Fecha del Reporte:;04-12-2024;;;;;;;;;;;;;;;;;;
-N° de identificación:;3101278451;;Usuario:;cmoreno@cyberfuel.com;;;;;;;;;;;;;;;;;;
+NÂ° de identificaciÃ³n:;3101278451;;Usuario:;cmoreno@cyberfuel.com;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;
 Cantidad de registros:;1;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;
 DATOS GENERALES;;;CLIENTE;;;DOCUMENTO;;;;;;;DATOS DEL PAGO;;;EQUIVALENTE EN MONEDA DEL DOC.;;;;;;
-Fecha;Sucursal;Terminal;Tipo identificación;N° de identificación;Nombre;Fecha de emisión;Fecha de vencimiento;N° de documento;Moneda doc;Tipo de cambio doc;Total;Estado;Método;Moneda;Monto del pago;Tipo de cambio;Monto;Banco;N° de referencia;N° de autorización;Últ. 4 dígitos;Notas
-2024-11-23;001;00001;Cédula Jurídica;3101246627;Cyberfuel S.A.;2024-11-01;2024-12-01;00100001010000000149;USD;515.48000;7’119.00000;pagada;"Transferencia - Dep&oacute;sito bancario";USD;7’119.00000;;7’119.00000;Promerica $;567657091;;;
+Fecha;Sucursal;Terminal;Tipo identificaciÃ³n;NÂ° de identificaciÃ³n;Nombre;Fecha de emisiÃ³n;Fecha de vencimiento;NÂ° de documento;Moneda doc;Tipo de cambio doc;Total;Estado;MÃ©todo;Moneda;Monto del pago;Tipo de cambio;Monto;Banco;NÂ° de referencia;NÂ° de autorizaciÃ³n;Ãšlt. 4 dÃ­gitos;Notas
+2024-11-23;001;00001;CÃ©dula JurÃ­dica;3101246627;Cyberfuel S.A.;2024-11-01;2024-12-01;00100001010000000149;USD;515.48000;7â€™119.00000;pagada;"Transferencia - Dep&oacute;sito bancario";USD;7â€™119.00000;;7â€™119.00000;Promerica $;567657091;;;

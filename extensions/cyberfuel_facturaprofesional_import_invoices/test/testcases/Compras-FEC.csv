@@ -1,11 +1,11 @@
-Reporte de compras general (facturas de compra);;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ï»¿Reporte de compras general (facturas de compra);;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 Reporte:;CRCFEC;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 Empresa:;Cyberfuel S.A.;;Fecha del Reporte:;04-12-2024;;;;;;;;;;;;;;;;;;;;;;;;;
-N° de identificación:;3101246627;;Usuario:;cmoreno@cyberfuel.com;;;;;;;;;;;;;;;;;;;;;;;;;
+NÂ° de identificaciÃ³n:;3101246627;;Usuario:;cmoreno@cyberfuel.com;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 Cantidad de registros:;2;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 DATOS GENERALES;;PROVEEDOR;;;DOCUMENTO;;;;;;;;;;;;;;;;;;;;;;;;
-Fecha de emisión;Actividad económica (receptor);Tipo de identificación;N° de identificación;Nombre;Tipo de documento;N° de documento;Moneda;Tipo de cambio;Monto total;Descuento;Subtotal gravado;Subtotal exento;Subtotal;Impuestos selectivo de consumo;Impuestos único a los combustibles;Impuestos específico de bebidas alcohólicas;Impuestos específico de bebidas envasadas;Impuestos tabaco;Impuestos específico al cemento;Otros impuestos;Exoneración IVA;IVA 1%;IVA 2%;IVA 4%;IVA 8%;IVA 13%;Total IVA;Otros cargos;Total
-2024-10-07;SERVICIO DE RESTAURANTE, CAFETERIAS, SODAS Y OTROS EXPENDIOS DE COMIDA;Cédula Jurídica;3102854191;113-INVERSIONES PASSARELLI DEL OESTE SOCIEDAD DE RESPONSABILIDAD LIMITADA;Factura de compra;00100001080000000070;CRC;1.00;2’500.00;0.00;0.00;2’500.00;2’500.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;2’500.00
-2024-10-07;SERVICIO DE RESTAURANTE, CAFETERIAS, SODAS Y OTROS EXPENDIOS DE COMIDA;Cédula Física;106760458;97-ALFREDO DE LOS ANGELES PALACIOS ALVARADO;Factura de compra;00100001080000000071;CRC;1.00;6’000.00;0.00;0.00;6’000.00;6’000.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;6’000.00
+Fecha de emisiÃ³n;Actividad econÃ³mica (receptor);Tipo de identificaciÃ³n;NÂ° de identificaciÃ³n;Nombre;Tipo de documento;NÂ° de documento;Moneda;Tipo de cambio;Monto total;Descuento;Subtotal gravado;Subtotal exento;Subtotal;Impuestos selectivo de consumo;Impuestos Ãºnico a los combustibles;Impuestos especÃ­fico de bebidas alcohÃ³licas;Impuestos especÃ­fico de bebidas envasadas;Impuestos tabaco;Impuestos especÃ­fico al cemento;Otros impuestos;ExoneraciÃ³n IVA;IVA 1%;IVA 2%;IVA 4%;IVA 8%;IVA 13%;Total IVA;Otros cargos;Total
+2024-10-07;SERVICIO DE RESTAURANTE, CAFETERIAS, SODAS Y OTROS EXPENDIOS DE COMIDA;CÃ©dula JurÃ­dica;3102854191;113-INVERSIONES PASSARELLI DEL OESTE SOCIEDAD DE RESPONSABILIDAD LIMITADA;Factura de compra;00100001080000000070;CRC;1.00;2â€™500.00;0.00;0.00;2â€™500.00;2â€™500.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;2â€™500.00
+2024-10-07;SERVICIO DE RESTAURANTE, CAFETERIAS, SODAS Y OTROS EXPENDIOS DE COMIDA;CÃ©dula FÃ­sica;106760458;97-ALFREDO DE LOS ANGELES PALACIOS ALVARADO;Factura de compra;00100001080000000071;CRC;1.00;6â€™000.00;0.00;0.00;6â€™000.00;6â€™000.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;0.00;6â€™000.00

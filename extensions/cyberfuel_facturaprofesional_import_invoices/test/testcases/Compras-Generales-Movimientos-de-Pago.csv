@@ -1,11 +1,11 @@
-Reporte de compras general Movimientos de Pago (doc. recibidos) (CRC);;;;;;;;;;;;;;;;
+ï»¿Reporte de compras general Movimientos de Pago (doc. recibidos) (CRC);;;;;;;;;;;;;;;;
 Reporte:;CRCGM;;;;;;;;;;;;;;;
 Empresa:;Cyberfuel S.A.;;Fecha del Reporte:;04-12-2024;;;;;;;;;;;;
-N° de identificación:;3101246627;;Usuario:;cmoreno@cyberfuel.com;;;;;;;;;;;;
+NÂ° de identificaciÃ³n:;3101246627;;Usuario:;cmoreno@cyberfuel.com;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;
 Cantidad de registros:;183;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;
 DATOS GENERALES;;PROVEEDOR;;;DOCUMENTO;;DATOS DEL PAGO;;;EQUIVALENTE EN MONEDA DEL DOC.;;;;;;
-Fecha de emisión;Fecha de recepción;Tipo de identificación;N° de identificación;Nombre;Tipo de documento;N° de documento;Método;Moneda;Monto del pago;Tipo de cambio;Monto;Banco;N° de referencia;N° de autorización;Últ. 4 dígitos;Notas
-2024-11-01;2024-11-04;Cédula Jurídica;3007154845;Academia Nacional de Ciencias;Factura;00100001010000045443;"Transferencia - Dep&oacute;sito bancario";USD;7’119.00000;;7’119.00000;Promerica $;567657091;;;
-2024-11-01;2024-11-04;Cédula Jurídica;3101012009;BANCO BAC SAN JOSÉ. S.A.;Factura;00100001010042226651;;;;;;;;;;
+Fecha de emisiÃ³n;Fecha de recepciÃ³n;Tipo de identificaciÃ³n;NÂ° de identificaciÃ³n;Nombre;Tipo de documento;NÂ° de documento;MÃ©todo;Moneda;Monto del pago;Tipo de cambio;Monto;Banco;NÂ° de referencia;NÂ° de autorizaciÃ³n;Ãšlt. 4 dÃ­gitos;Notas
+2024-11-01;2024-11-04;CÃ©dula JurÃ­dica;3007154845;Academia Nacional de Ciencias;Factura;00100001010000045443;"Transferencia - Dep&oacute;sito bancario";USD;7â€™119.00000;;7â€™119.00000;Promerica $;567657091;;;
+2024-11-01;2024-11-04;CÃ©dula JurÃ­dica;3101012009;BANCO BAC SAN JOSÃ‰. S.A.;Factura;00100001010042226651;;;;;;;;;;
