@@ -84,12 +84,12 @@ var CRVG = class CRVG {
     /**
      * Static method to map a CRVG object to an Invoice object.
      */
-    static mapToInvoice(invoiceData) {
+    static mapToInvoice(invoiceData, paymentsData = []) {
         return new Invoice(
             invoiceData.issueDate,
             "10",  // Invoice by client default number in Banana.
             invoiceData.invoiceId,  // Invoice Number: Invoice document number
-            this.setInvoiceState(invoiceData.status),  // Invoice State
+            this.setInvoiceState(invoiceData.status, invoiceData, paymentsData),  // Invoice State
             `Invoice ${invoiceData.invoiceId} - ${invoiceData.customerName}`, // InvoiceDescription
             invoiceData.customerId,  // Debit amount: Customer ID (Acoounts table).
             "3000",  // Credit amount,  fare un metodo per mappare i conti !!!!
@@ -99,17 +99,18 @@ var CRVG = class CRVG {
     }
 
     /**
-     * Returns the invoice status based on the status indicated in the CSV file in the field "status".
+     * Returns the invoice status based on the status indicated in the CSV file in the field "status" and
+     * if the invoice is found into the CRVGM report (payments report), we double check it.
      * @param {string} status - The status from CRVG.
+     * @param {CRVG} - The invoice data in format CRVG.
+     * @param {CRVGM} - List of payments in the report CRVGM.
      * @returns {string} - The corresponding InvoiceState.
      */
-    static setInvoiceState(status) {
-        switch (status) {
-            case "Pagada":
-                return InvoiceState.PAID;  // "Paid"
-            default:
-                return InvoiceState.OPEN; // Default: "Open"
-        }
+    static setInvoiceState(status, invoiceData, paymentsData = []) {
+        if (status === "Pagada" && paymentsData.some(payment => payment.invoiceId === invoiceData.invoiceId))
+            return InvoiceState.PAID;
+        else
+            return InvoiceState.OPEN;
     }
 
     /**
@@ -414,10 +415,11 @@ var CRCG = class CRCG {
             return InvoiceState.PAID
         if (invoiceData.paymentCondition === "Crédito")
             return InvoiceState.OPEN
+        if (invoiceData.paymentCondition === "Arrendamiento con Opción de Compra")
+            return InvoiceState.OPEN
         Banana.console.log(`Warning: Unknown invoice status: ${invoiceData.paymentCondition}, for invoice ${invoiceData.invoiceId}. Defaulting to "Open".`)
         return InvoiceState.OPEN
     }
-
 
     /**
     * Static method to find the VAT code used in the invoice.
@@ -512,12 +514,12 @@ var CRGSE = class CRGSE {
     * @param {CRGSE} expenseData - An instance of CRGSE.
     * @returns {Invoice} - An instance of Invoice formatted for Banana.
     */
-    static mapToInvoice(expenseData) {
+    static mapToInvoice(expenseData, paymentsData = []) {
         return new Invoice(
             expenseData.expenseDate,  // InvoiceDate: Date of the expense (YYYY-MM-DD)
             "20",  // InvoiceType: Default type for supplier expenses
             expenseData.expenseId,  // InvoiceNumber: Expense record number
-            this.setInvoiceState(),
+            this.setInvoiceState(expenseData, paymentsData),
             `Non-electronic Expense ${expenseData.expenseId} - ${expenseData.supplierName}`, // InvoiceDescription
             "4000",  // InvoiceDebitAccount: Default expense account (modify if needed)
             expenseData.supplierId || "",  // InvoiceCreditAccount: Supplier ID (or default if missing)
@@ -525,9 +527,25 @@ var CRGSE = class CRGSE {
             ""  // InvoiceVatCode: No VAT code by default
         );
     }
-    static setInvoiceState() {
-        //....
+    /**
+     * Determines the invoice state for CRGSE based on available data and payment records from CRGSEM.
+     * @param {CRGSE} expenseData - An instance of CRGSE.
+     * @param {CRGSEM} paymentsData - A list of CRGSEM instances.
+     * @returns {string} - The corresponding InvoiceState.
+     */
+    static setInvoiceState(expenseData, paymentsData = []) {
+        if (paymentsData.some(payment => payment.expenseId === expenseData.expenseId))
+            return InvoiceState.PAID
+        if (expenseData.status === "Activo") // Da verificare...
+            return InvoiceState.OPEN
+        if (expenseData.status === "Pendiente")
+            return InvoiceState.OPEN
+        if (expenseData.status === "Cancelado")
+            return InvoiceState.CANCELLED
+        Banana.console.log(`Warning: Unknown expense status for expense ${expenseData.expenseId}. Defaulting to "Open".`)
+        return InvoiceState.OPEN
     }
+
 }
 
 // The class "CRGSEM" defines the structure of supplier payments from Gastos-sin-Soporte-Electrónico-Movimientos-de-Pago.csv.

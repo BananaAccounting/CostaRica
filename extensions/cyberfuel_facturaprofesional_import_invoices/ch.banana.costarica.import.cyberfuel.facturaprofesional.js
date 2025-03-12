@@ -59,8 +59,9 @@ var ImportFacturaProfesionalInvoices = class ImportFacturaProfesionalInvoices {
     constructor(banDoc, filesData) {
         this.banDoc = banDoc;
         this.filesData = filesData;
-        this.existingCustomersInvoices = this.banDoc.invoicesCustomers(); // Journal table with all data.
-        this.existingSuppliersInvoices = this.banDoc.invoicesSuppliers(); // Journal table with all data.
+        this.existingCustomersInvoicesTableData = this.banDoc.invoicesCustomers(); // Journal table with all data.
+        this.existingSuppliersInvoicesTableData = this.banDoc.invoicesSuppliers(); // Journal table with all data.
+        this.existingInvoices = new Set();
         this.headersRowIndex = 8;
         //Files content
         this.CRVGContent = this.getFileContent("CRVG");
@@ -80,6 +81,9 @@ var ImportFacturaProfesionalInvoices = class ImportFacturaProfesionalInvoices {
         this.CRCGMData = this.mapDataCRCGM();
         this.CRGSEData = this.mapDataCRGSE();
         this.CRGSEMData = this.mapDataCRGSEM();
+
+        // Methods
+        this.setExistingInvoicesIdentificationList();
     }
 
     getDocumentChange() {
@@ -89,9 +93,49 @@ var ImportFacturaProfesionalInvoices = class ImportFacturaProfesionalInvoices {
     }
 
     getDocumentChangeInvoicesData() {
+        let data = [];
+        let newInvoicesDoc = this.getNewInvoicesDocumentChange();
+        let existingInvoicesDoc = this.getInvoicesToUpdateDocumentChange();
+        data.push(newInvoicesDoc);
+        data.push(existingInvoicesDoc);
+
+        return data;
+    }
+
+    getInvoicesToUpdateDocumentChange() {
+        let invoicesToUpdate = this.getInvoicesToUpdateList();
+    }
+
+    getNewInvoicesDocumentChange() {
         let newInvoicesList = [];
-        // First identify new invoices
         newInvoicesList = this.getNewInvoicesList();
+        //Banana.Ui.showText(JSON.stringify(newInvoicesList)); //Ok
+
+        let docChangeObj = this.getDocumentChangeInit();
+        let rows = [];
+
+        //method to save the transactions, must watch how they record various cases into accounting
+
+        let dataUnitTransactionsTable = {};
+        dataUnitTransactionsTable.nameXml = "Transactions";
+        dataUnitTransactionsTable.data = {};
+        dataUnitTransactionsTable.data.rowLists = [];
+        dataUnitTransactionsTable.data.rowLists.push({ "rows": rows });
+
+        docChangeObj.document.dataUnits.push(dataUnitTransactionsTable);
+
+        return docChangeObj;
+    }
+
+    getInvoicesToUpdateList() {
+        let existingInvoicesCRVG = [];
+        let existingInvoicesCRCFEC = [];
+        let existingInvoicesCRCG = [];
+        let existingInvoicesCRGSE = [];
+
+        existingInvoicesCRVG = this.getExistingInvoicesListCustomersCRVG();
+        Banana.Ui.showText(JSON.stringify(existingInvoicesCRVG)); // 13.03 riprendere da qui.
+
     }
 
     /**
@@ -100,24 +144,22 @@ var ImportFacturaProfesionalInvoices = class ImportFacturaProfesionalInvoices {
      * API already provides the list of customers and suppliers separately.
      */
     getNewInvoicesList() {
-        let existingInvoicesSet = new Set();
-        this.getExistingInvoicesNumbersList(this.existingSuppliersInvoices, existingInvoicesSet);
-        let newInvoicesCus = [];
+        let newInvoicesCRVG = [];
         let newInvoicesCRCFEC = [];
         let newInvoicesCRCG = [];
         let newInvoicesCRGSE = [];
 
-        newInvoicesCus = this.getNewInvoicesListCustomers(existingInvoicesSet);
-        newInvoicesCRCFEC = this.getNewInvoicesListSuppliersCRCFEC(existingInvoicesSet);
-        newInvoicesCRCG = this.getNewInvoicesListSuppliersCRCG(existingInvoicesSet);
-        newInvoicesCRGSE = this.getNewInvoicesListSuppliersCRGSE(existingInvoicesSet);
+        newInvoicesCRVG = this.getNewInvoicesListCustomersCRVG();
+        newInvoicesCRCFEC = this.getNewInvoicesListSuppliersCRCFEC();
+        newInvoicesCRCG = this.getNewInvoicesListSuppliersCRCG();
+        newInvoicesCRGSE = this.getNewInvoicesListSuppliersCRGSE();
 
 
         let invoicesToAdd = [];
 
         // Map the new customers invoices
-        for (let i = 0; i < newInvoicesCus.length; i++) {
-            invoicesToAdd.push(CRVG.mapToInvoice(newInvoicesCus[i]));
+        for (let i = 0; i < newInvoicesCRVG.length; i++) {
+            invoicesToAdd.push(CRVG.mapToInvoice(newInvoicesCRVG[i], this.CRVGMData));
         }
 
         // Map the new suppliers electronic invoices
@@ -130,12 +172,12 @@ var ImportFacturaProfesionalInvoices = class ImportFacturaProfesionalInvoices {
             invoicesToAdd.push(CRCG.mapToInvoice(newInvoicesCRCG[i], this.CRCGMData)); // Pass CRCGMData to define if a invoice has been paid.
         }
 
-        Banana.Ui.showText(JSON.stringify(invoicesToAdd));
-
         // Map the new suppliers general invoices (without electronic format)
         for (let i = 0; i < newInvoicesCRGSE.length; i++) {
-            invoicesToAdd.push(CRGSE.mapToInvoice(newInvoicesCRGSE[i]));
+            invoicesToAdd.push(CRGSE.mapToInvoice(newInvoicesCRGSE[i], this.CRGSEMData));
         }
+
+        return invoicesToAdd;
 
     }
 
@@ -175,22 +217,21 @@ var ImportFacturaProfesionalInvoices = class ImportFacturaProfesionalInvoices {
      * Returns a list of CRCFEC objects containing the new invoices to be imported.
      * Works with invoices from customers received in electronic format (CRCFEC)
      */
-    getNewInvoicesListSuppliersCRCFEC(existingInvoicesSet) {
+    getNewInvoicesListSuppliersCRCFEC() {
         return this.CRCFECData.filter(invoice => {
             const uniqueKey = `${invoice.invoiceId}|${invoice.supplierId}`;
-            return !existingInvoicesSet.has(uniqueKey) && invoice.documentType === "Factura de compra";
+            return !this.existingInvoices.has(uniqueKey) && invoice.documentType === "Factura de compra";
         });
     }
-
 
     /**
      * Returns a list of CRCG objects containing the new invoices to be imported.
      * Works with invoices from suppliers received in electronic format (CRCG)
      */
-    getNewInvoicesListSuppliersCRCG(existingInvoicesSet) {
+    getNewInvoicesListSuppliersCRCG() {
         return this.CRCGData.filter(invoice => {
             const uniqueKey = `${invoice.invoiceId}|${invoice.supplierId}`;
-            return !existingInvoicesSet.has(uniqueKey) && invoice.documentType === "Factura";
+            return !this.existingInvoices.has(uniqueKey) && invoice.documentType === "Factura";
         });
     }
 
@@ -198,10 +239,10 @@ var ImportFacturaProfesionalInvoices = class ImportFacturaProfesionalInvoices {
     * Returns a list of CRGSE objects containing the new invoices to be imported.
     * Works with invoices from suppliers NOT received in electronic format (CRGSE)
     */
-    getNewInvoicesListSuppliersCRGSE(existingInvoicesSet) {
+    getNewInvoicesListSuppliersCRGSE() {
         return this.CRGSEData.filter(invoice => {
             const uniqueKey = `${invoice.invoiceId}|${invoice.supplierId}`;
-            return !existingInvoicesSet.has(uniqueKey);
+            return !this.existingInvoices.has(uniqueKey);
         });
     }
 
@@ -210,10 +251,22 @@ var ImportFacturaProfesionalInvoices = class ImportFacturaProfesionalInvoices {
      * We check for the new invoices for costumers into the following report:
      * - CRVG (Costa Rica, Ventas Generales)
      */
-    getNewInvoicesListCustomers(existingInvoicesSet) {
+    getNewInvoicesListCustomersCRVG() {
         return this.CRVGData.filter(invoice => {
             const uniqueKey = `${invoice.invoiceId}|${invoice.customerId}`;
-            return !existingInvoicesSet.has(uniqueKey) && invoice.documentType === "Factura";
+            return !this.existingInvoices.has(uniqueKey) && invoice.documentType === "Factura";
+        });
+    }
+
+    /**
+     * Returns a list of CRVG objects containing invoices that already exist in the accounting system.
+     * We check for existing invoices for customers in the following report:
+     * - CRVG (Costa Rica, Ventas Generales)
+     */
+    getExistingInvoicesListCustomersCRVG() {
+        return this.CRVGData.filter(invoice => {
+            const uniqueKey = `${invoice.invoiceId}|${invoice.customerId}`;
+            return this.existingInvoices.has(uniqueKey) && invoice.documentType === "Factura";
         });
     }
 
@@ -262,25 +315,45 @@ var ImportFacturaProfesionalInvoices = class ImportFacturaProfesionalInvoices {
     }
 
     /**
-     * Returns the list of existing invoices numbers.
-     * Works for both customers and suppliers.
+     * Set the list of existing invoices identification.
      * We make association: "InvoiceId|CounterpartyId".
+     * Works on the two invoices tables: Customers and Suppliers.
      */
-    getExistingInvoicesNumbersList(invoicesTableData, existingInvoicesSet) {
-        if (invoicesTableData) {
-            for (var i = 0; i < invoicesTableData.rowCount; i++) {
-                var tRow = invoicesTableData.row(i);
-                var jsonString = tRow.toJSON();
-                if (jsonString.length > 0) {
-                    var jsonRow = JSON.parse(jsonString);
-                    let invNr = jsonRow["Invoice"];
-                    let counterpartyId = jsonRow["CounterpartyId"];
-                    if (invNr && counterpartyId) {
-                        existingInvoicesSet.add(jsonRow["Invoice"].toString() + "|" + jsonRow["CounterpartyId"].toString());
-                    }
+    setExistingInvoicesIdentificationList() {
+        let tablesList = [this.existingCustomersInvoicesTableData, this.existingSuppliersInvoicesTableData];
+
+        tablesList.forEach(table => {
+            if (!table) return;
+
+            for (let i = 0; i < table.rowCount; i++) {
+                let jsonRow = JSON.parse(table.row(i).toJSON() || "{}");
+                let invNr = jsonRow["Invoice"];
+                let counterpartyId = jsonRow["CounterpartyId"];
+                if (invNr && counterpartyId) {
+                    this.existingInvoices.add(`${invNr.toString()}|${counterpartyId.toString()}`);
                 }
             }
-        }
+        });
+    }
+
+
+    getDocumentChangeInit() {
+
+        let jsonDoc = {};
+        jsonDoc.document = {};
+        jsonDoc.document.dataUnitsfileVersion = "1.0.0";
+        jsonDoc.document.dataUnits = [];
+        jsonDoc.document.cursorPosition = {};
+
+        jsonDoc.creator = {};
+        var d = new Date();
+        //jsonDoc.creator.executionDate = Banana.Converter.toInternalDateFormat(datestring, "yyyymmdd");
+        //jsonDoc.creator.executionTime = Banana.Converter.toInternalTimeFormat(timestring, "hh:mm");
+        jsonDoc.creator.name = Banana.script.getParamValue('id');
+        jsonDoc.creator.version = "1.0";
+
+        return jsonDoc;
+
     }
 }
 
