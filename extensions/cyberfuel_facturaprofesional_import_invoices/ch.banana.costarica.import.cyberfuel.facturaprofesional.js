@@ -133,9 +133,58 @@ var ImportFacturaProfesionalInvoices = class ImportFacturaProfesionalInvoices {
         let existingInvoicesCRCG = [];
         let existingInvoicesCRGSE = [];
 
-        existingInvoicesCRVG = this.getExistingInvoicesListCustomersCRVG();
-        Banana.Ui.showText(JSON.stringify(existingInvoicesCRVG)); // 13.03 riprendere da qui.
+        /**
+         * - Per ogni tipologia di report, salvo le fatture che esistono gia in contabilità.
+         * - Per ogni fattura controllo se è ancora aperta controllando il suo bilancio.
+         * - Se una fattura è aperta, cerco nel report corrispondente se è presente il pagamento (Ad esenpio CRVG->CRVGM)
+         * - Se è presente il pagamento, devo caricare il file csv della banca specifica e controllare se anche li risulta il pagamento e se ci sono
+         * delle commissioni da aggiungere
+         * - Se ho i dati del pagamento, creo la registrazione di pagamento, altrimenti per quella fattura nonb creo niente.
+         */
 
+        existingInvoicesCRVG = this.getExistingInvoicesListCustomersCRVG();
+
+        for (let i = 0; i < existingInvoicesCRVG.length; i++) {
+            // Controllo il bilancio della fattura in contabilità
+            let invoice = existingInvoicesCRVG[i];
+            let invoiceID = invoice.invoiceId;
+            if (this.invoiceIsOutStanding(invoiceID)) {
+                //Controllo se ce il pagamento nel report corrispondente
+                let invoiceState = CRVG.getInvoiceState(existingInvoicesCRVG[i], this.CRVGMData);
+                switch (invoiceState) {
+                    case InvoiceState.OPEN: // No payment found.
+                        break;
+                    case InvoiceState.PAID: // Invoice has been fully paid.
+                        let paymentsData = CRVG.getInvoicePaymentData(this.CRVGMData);
+                        Banana.Ui.showText(JSON.stringify(paymentsData));
+
+                    case InvoiceState.PARTIALLY_PAID: // Invoice has been paritally paid.
+                    //.. do something
+                    case InvoiceState.CANCELLED: // Invoice has been cancelled (Nota di credito)
+                    //.. do something
+                }
+
+            }
+        }
+
+    }
+
+    /**
+     * Returns true if the invoice with the id = invoiceId has an outstanding balance.
+     * If the invoice is paid, the object has a property named "Status" with value: "paidInvoice".
+     * @param {*} invoiceId 
+     */
+    invoiceIsOutStanding(invoiceId) {
+        let tablesList = [this.existingCustomersInvoicesTableData, this.existingSuppliersInvoicesTableData];
+        tablesList.forEach(table => {
+            if (!table) return;
+            for (let i = 0; i < table.rowCount; i++) {
+                let jsonRow = JSON.parse(table.row(i).toJSON() || "{}");
+                if (jsonRow["Invoice"] == invoiceId && (jsonRow["Status"] && jsonRow["Status"] == "paidInvoice"))
+                    return false;
+            }
+        });
+        return true;
     }
 
     /**
@@ -156,6 +205,8 @@ var ImportFacturaProfesionalInvoices = class ImportFacturaProfesionalInvoices {
 
 
         let invoicesToAdd = [];
+
+        // !!! Ricordarsi di aggiungere anche controllo tramite Estratto conto bancario !!!
 
         // Map the new customers invoices
         for (let i = 0; i < newInvoicesCRVG.length; i++) {
@@ -282,6 +333,7 @@ var ImportFacturaProfesionalInvoices = class ImportFacturaProfesionalInvoices {
         return [];
     }
 
+
     /**
     * Each file contains an identification of the file type:
     * - CRVG (Costa Rica, Ventas Generales)
@@ -371,6 +423,7 @@ function displayJournalInvoicesData(invoicesTableData) {
                         Banana.console.debug(key + ": " + jsonRow[key].toString());
                 }
             }
+            Banana.console.debug("------------------------------------------------------");
         }
     }
 }

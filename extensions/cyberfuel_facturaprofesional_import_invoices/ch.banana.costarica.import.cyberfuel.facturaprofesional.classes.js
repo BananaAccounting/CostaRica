@@ -20,6 +20,8 @@ const InvoiceState = Object.freeze({
     CANCELLED: "Cancelled"
 });
 
+// ****** INVOICES CLASSES ********
+
 // The class "CRVG" defines the structure of the customer invoice object based on Ventas-Generales.csv.
 var CRVG = class CRVG {
     constructor(
@@ -89,7 +91,7 @@ var CRVG = class CRVG {
             invoiceData.issueDate,
             "10",  // Invoice by client default number in Banana.
             invoiceData.invoiceId,  // Invoice Number: Invoice document number
-            this.setInvoiceState(invoiceData.status, invoiceData, paymentsData),  // Invoice State
+            this.getInvoiceState(invoiceData.status, invoiceData, paymentsData),  // Invoice State
             `Invoice ${invoiceData.invoiceId} - ${invoiceData.customerName}`, // InvoiceDescription
             invoiceData.customerId,  // Debit amount: Customer ID (Acoounts table).
             "3000",  // Credit amount,  fare un metodo per mappare i conti !!!!
@@ -106,11 +108,31 @@ var CRVG = class CRVG {
      * @param {CRVGM} - List of payments in the report CRVGM.
      * @returns {string} - The corresponding InvoiceState.
      */
-    static setInvoiceState(status, invoiceData, paymentsData = []) {
+    static getInvoiceState(status, invoiceData, paymentsData = []) {
         if (status === "Pagada" && paymentsData.some(payment => payment.invoiceId === invoiceData.invoiceId))
             return InvoiceState.PAID;
         else
             return InvoiceState.OPEN;
+    }
+
+
+    /**
+    * Retrieves the payment bank and reference number associated with this invoice.
+    * @param {Array} paymentsData - List of payments from the CRVGM report (payments report).
+    * @returns {Object|null} - Payment details { bank: string, reference: string, paymentDate: string } or null if not found.
+    */
+    static getInvoicePaymentData(paymentsData) {
+        const payment = paymentsData.find(p => p.invoiceId === this.invoiceId);
+
+        if (!payment) {
+            return null; // No payment found for this invoice
+        }
+
+        return {
+            bank: payment.bank || "",
+            reference: payment.paymentReference || "",
+            paymentDate: payment.paymentDate || ""
+        };
     }
 
     /**
@@ -228,7 +250,7 @@ var CRCFEC = class CRCFEC {
             invoiceData.issueDate,  // InvoiceDate: Date of the invoice (YYYY-MM-DD)
             "20",  // InvoiceType: Default type for supplier invoices
             invoiceData.invoiceId,  // InvoiceNumber: Invoice document number
-            this.setInvoiceState(invoiceData, paymentsData),  // InvoiceState: Open, Paid, Partially paid, Cancelled
+            this.getInvoiceState(invoiceData, paymentsData),  // InvoiceState: Open, Paid, Partially paid, Cancelled
             `Electronic Purchase Invoice ${invoiceData.invoiceId} - ${invoiceData.supplierName}`, // InvoiceDescription
             "5000",  // InvoiceDebitAccount: Default expense account (modify if needed)
             invoiceData.supplierId,  // InvoiceCreditAccount: Supplier ID (Accounts table)
@@ -243,7 +265,7 @@ var CRCFEC = class CRCFEC {
      * @param {CRCFECM} paymentsData - List of all paid invoices in CRCFEC report file.
      * @returns {string} - The corresponding InvoiceState.
      */
-    static setInvoiceState(invoiceData, paymentsData) {
+    static getInvoiceState(invoiceData, paymentsData) {
         if (invoiceData.documentType === "Nota de crédito")
             return InvoiceState.CANCELLED;
         if (paymentsData.some(payment => payment.invoiceId === invoiceData.invoiceId))
@@ -391,7 +413,7 @@ var CRCG = class CRCG {
             invoiceData.issueDate,  // InvoiceDate: Date of the invoice (YYYY-MM-DD)
             "20",  // InvoiceType: Default type for supplier invoices in Banana.
             invoiceData.invoiceId,  // InvoiceNumber: Invoice document number.
-            this.setInvoiceState(invoiceData, paymentsData),
+            this.getInvoiceState(invoiceData, paymentsData),
             `Supplier Invoice ${invoiceData.invoiceId} - ${invoiceData.supplierName}`, // InvoiceDescription.
             "5000",  // InvoiceDebitAccount: Default expense account (modify if needed)
             invoiceData.supplierId,  // InvoiceCreditAccount: Supplier ID (Accounts table)
@@ -406,7 +428,7 @@ var CRCG = class CRCG {
      * @param {CRCGM} paymentsData - List of all paid invoices in CRCGM report file.
     * @returns {string} - The corresponding InvoiceState.
     */
-    static setInvoiceState(invoiceData, paymentsData) {
+    static getInvoiceState(invoiceData, paymentsData) {
         if (invoiceData.documentType === "Nota de crédito")
             return InvoiceState.CANCELLED
         if (paymentsData.some(payment => payment.invoiceId === invoiceData.invoiceId))
@@ -519,7 +541,7 @@ var CRGSE = class CRGSE {
             expenseData.expenseDate,  // InvoiceDate: Date of the expense (YYYY-MM-DD)
             "20",  // InvoiceType: Default type for supplier expenses
             expenseData.expenseId,  // InvoiceNumber: Expense record number
-            this.setInvoiceState(expenseData, paymentsData),
+            this.getInvoiceState(expenseData, paymentsData),
             `Non-electronic Expense ${expenseData.expenseId} - ${expenseData.supplierName}`, // InvoiceDescription
             "4000",  // InvoiceDebitAccount: Default expense account (modify if needed)
             expenseData.supplierId || "",  // InvoiceCreditAccount: Supplier ID (or default if missing)
@@ -533,7 +555,7 @@ var CRGSE = class CRGSE {
      * @param {CRGSEM} paymentsData - A list of CRGSEM instances.
      * @returns {string} - The corresponding InvoiceState.
      */
-    static setInvoiceState(expenseData, paymentsData = []) {
+    static getInvoiceState(expenseData, paymentsData = []) {
         if (paymentsData.some(payment => payment.expenseId === expenseData.expenseId))
             return InvoiceState.PAID
         if (expenseData.status === "Activo") // Da verificare...
@@ -593,6 +615,52 @@ var Invoice = class Invoice {
 }
 
 
+// ****** BANK STATEMENTS CLASSES ********
 
+var PromericaBankStatement = class PromericaBankStatement {
+    constructor(fileContent) {
+        this.fileContent = fileContent;
+    }
 
+    static formatMatch(fileContent) {
 
+        let transactionsData = getTransactionsData(fileContent);
+
+        if (!transactionsData || transactionsData.length === 0)
+            return false;
+
+        for (i = 0; i < transactionsData.length; i++) {
+            var transaction = transactionsData[i];
+
+            var formatMatched = false;
+
+            if (transaction["Fecha"] && transaction["Fecha"].match(/^[0-9]+\.[0-9]+\.[0-9]+$/))
+                formatMatched = true;
+            else
+                formatMatched = false;
+
+            if (formatMatched && transaction["Documento"])
+                formatMatched = true;
+            else
+                formatMatched = false;
+
+            if (formatMatched)
+                return true;
+        }
+
+        return false;
+    }
+
+    static getTransactionsData(fileContent) {
+        let transactions = Banana.Converter.csvToArray(fileContent, ";", '"');
+        if (transactions.length === 0)
+            return false;
+
+        var transactionsData = [];
+        var columns = this.getHeaderData(transactions, 7); //array
+        var rows = this.getRowData(csvFile, 8); // array of array
+        return this.loadForm(transactionsData, columns, rows);
+
+    }
+
+}
