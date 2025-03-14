@@ -26,6 +26,8 @@
 // @task = import.file
 // @includejs = import.utilities.js
 // @includejs = ch.banana.costarica.import.cyberfuel.facturaprofesional.classes.js
+// @includejs = import/ch.banana.costarica.import.statement.promerica.js
+
 
 /**
  * This extension imports invoices in CSV format from Cyberfuel Factura Profesional into accounting
@@ -94,7 +96,7 @@ var ImportFacturaProfesionalInvoices = class ImportFacturaProfesionalInvoices {
 
     getDocumentChangeInvoicesData() {
         let data = [];
-        let newInvoicesDoc = this.getNewInvoicesDocumentChange();
+        let newInvoicesDoc = ""; // x testare quelle esistenti --> this.getNewInvoicesDocumentChange();
         let existingInvoicesDoc = this.getInvoicesToUpdateDocumentChange();
         data.push(newInvoicesDoc);
         data.push(existingInvoicesDoc);
@@ -109,7 +111,7 @@ var ImportFacturaProfesionalInvoices = class ImportFacturaProfesionalInvoices {
     getNewInvoicesDocumentChange() {
         let newInvoicesList = [];
         newInvoicesList = this.getNewInvoicesList();
-        //Banana.Ui.showText(JSON.stringify(newInvoicesList)); //Ok
+        //Banana.Ui.showText(JSON.stringify(newInvoicesList)); // Ok
 
         let docChangeObj = this.getDocumentChangeInit();
         let rows = [];
@@ -150,23 +152,40 @@ var ImportFacturaProfesionalInvoices = class ImportFacturaProfesionalInvoices {
             let invoiceID = invoice.invoiceId;
             if (this.invoiceIsOutStanding(invoiceID)) {
                 //Controllo se ce il pagamento nel report corrispondente
-                let invoiceState = CRVG.getInvoiceState(existingInvoicesCRVG[i], this.CRVGMData);
-                switch (invoiceState) {
-                    case InvoiceState.OPEN: // No payment found.
+                let state = CRVG.getInvoiceState(invoice.status, invoice, this.CRVGMData);
+                switch (state) {
+                    case "Open": // No payment found.
                         break;
-                    case InvoiceState.PAID: // Invoice has been fully paid.
-                        let paymentsData = CRVG.getInvoicePaymentData(this.CRVGMData);
-                        Banana.Ui.showText(JSON.stringify(paymentsData));
-
-                    case InvoiceState.PARTIALLY_PAID: // Invoice has been paritally paid.
+                    case "Paid": // Invoice has been fully paid.
+                        let paymentsData = CRVG.getInvoicePaymentData(invoiceID, this.CRVGMData);
+                        let bankStatement = this.getPaymentRowFromBankStatement(paymentsData);
+                    case "Partially paid": // Invoice has been paritally paid.
                     //.. do something
-                    case InvoiceState.CANCELLED: // Invoice has been cancelled (Nota di credito)
+                    case "Cancelled": // Invoice has been cancelled (Nota di credito)
                     //.. do something
                 }
 
             }
         }
 
+    }
+
+    /**
+     * Given the payment data found in the payment file, we look for a match
+     * in the corresponding bank statement.
+     * @param {*} paymentsData 
+     */
+    getPaymentRowFromBankStatement(paymentsData) {
+        let bankName = paymentsData.bank;
+        if (bankName.indexOf("Promerica") >= 0) {
+            let promericaBankStatement = new PromericaBankStatement();
+            let bankData = this.getBankStatementContent(promericaBankStatement);
+            Banana.Ui.showText(JSON.stringify(bankData));
+            CRVG.findRowInStatement();
+
+        }
+        if (bankName.indexOf("Bank2") >= 0)
+            Banana.console.debug("test");//getBank2StatementContent();
     }
 
     /**
@@ -330,6 +349,27 @@ var ImportFacturaProfesionalInvoices = class ImportFacturaProfesionalInvoices {
                 return Banana.Converter.csvToArray(fileContent, ";", '"');
             }
         }
+        return [];
+    }
+
+    /**
+    * Given a bankImporter, which can be an instance of one of the following import classes:
+    * - PromericaBankStatement
+    * - ...
+    * It checks whether there is a file in the folder that matches the format handled by the 
+    * bankImporter. If a statement matching the format is found, it formats and returns the 
+    * transactions present in the statement.
+     */
+    getBankStatementContent(bankImporter) {
+        var importUtilities = new ImportUtilities(Banana.document);
+        for (let file in this.filesData) {
+            if (bankImporter.match(this.filesData[file])) {
+                let trData = bankImporter.getFormattedData(this.filesData[file], importUtilities);
+                if (bankImporter.match(trData));
+                return trData;
+            }
+        }
+        Banana.console.debug("No compatible bank statement found.");
         return [];
     }
 

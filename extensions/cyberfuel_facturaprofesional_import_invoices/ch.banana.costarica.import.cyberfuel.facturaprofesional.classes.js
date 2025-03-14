@@ -109,11 +109,14 @@ var CRVG = class CRVG {
      * @returns {string} - The corresponding InvoiceState.
      */
     static getInvoiceState(status, invoiceData, paymentsData = []) {
-        if (status === "Pagada" && paymentsData.some(payment => payment.invoiceId === invoiceData.invoiceId))
+        if (status === "Pagada" && paymentsData.some(payment =>
+            String(payment.invoiceId).trim().toLowerCase() === String(invoiceData.invoiceId).trim().toLowerCase())) {
             return InvoiceState.PAID;
-        else
+        } else {
             return InvoiceState.OPEN;
+        }
     }
+
 
 
     /**
@@ -121,12 +124,11 @@ var CRVG = class CRVG {
     * @param {Array} paymentsData - List of payments from the CRVGM report (payments report).
     * @returns {Object|null} - Payment details { bank: string, reference: string, paymentDate: string } or null if not found.
     */
-    static getInvoicePaymentData(paymentsData) {
-        const payment = paymentsData.find(p => p.invoiceId === this.invoiceId);
+    static getInvoicePaymentData(invoiceID, paymentsData) {
+        const payment = paymentsData.find(p => p.invoiceId === invoiceID);
 
-        if (!payment) {
-            return null; // No payment found for this invoice
-        }
+        if (!payment)
+            return null; // No payment found.
 
         return {
             bank: payment.bank || "",
@@ -612,55 +614,4 @@ var Invoice = class Invoice {
         this.invoiceAmount = invoiceAmount; // Invoice amount
         this.invoiceVatCode = invoiceVatCode; // VAT code
     }
-}
-
-
-// ****** BANK STATEMENTS CLASSES ********
-
-var PromericaBankStatement = class PromericaBankStatement {
-    constructor(fileContent) {
-        this.fileContent = fileContent;
-    }
-
-    static formatMatch(fileContent) {
-
-        let transactionsData = getTransactionsData(fileContent);
-
-        if (!transactionsData || transactionsData.length === 0)
-            return false;
-
-        for (i = 0; i < transactionsData.length; i++) {
-            var transaction = transactionsData[i];
-
-            var formatMatched = false;
-
-            if (transaction["Fecha"] && transaction["Fecha"].match(/^[0-9]+\.[0-9]+\.[0-9]+$/))
-                formatMatched = true;
-            else
-                formatMatched = false;
-
-            if (formatMatched && transaction["Documento"])
-                formatMatched = true;
-            else
-                formatMatched = false;
-
-            if (formatMatched)
-                return true;
-        }
-
-        return false;
-    }
-
-    static getTransactionsData(fileContent) {
-        let transactions = Banana.Converter.csvToArray(fileContent, ";", '"');
-        if (transactions.length === 0)
-            return false;
-
-        var transactionsData = [];
-        var columns = this.getHeaderData(transactions, 7); //array
-        var rows = this.getRowData(csvFile, 8); // array of array
-        return this.loadForm(transactionsData, columns, rows);
-
-    }
-
 }
