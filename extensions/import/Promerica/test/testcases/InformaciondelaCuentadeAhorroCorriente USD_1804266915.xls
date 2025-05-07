@@ -1,0 +1,561 @@
+<html><style>body {  font-size: 12;  text-align:center;  margin:0 auto; }  #contenedor{width:85%; margin-bottom:100px; text-align:center;}  table { font-size: 12;} table tr { line-height:15px; } table tr td { padding-left:5px; padding-right:0; }  #table2 { margin-left:1px; border-collapse: collapse; border-spacing: 0; }  table .header{ background-color:#00703C; color:#FFFFFF; } table .subHeader { background-color:#C9E7A8; color:#424242; }  #rowSep { height:15px; } .tdNumber { text-align:right; padding-right:5px; }  .tdMarcadoLF { text-align:left; background-color:#C9E7A8;font-weight:bold; }  .tdMarcadoRG { text-align:right; background-color:#C9E7A8; font-weight:bold; }  .line { background-color:#C9E7A8; } h1 { color:#00703C; text-align:center; font-weight: 300; font-size:250%; padding-top:20px;}  .subTitle { font-size:18px; font-weight:bold; } .labelNumber {display:inline-block; width: 100px; text-align:right; }  #lblencabezado { font-weight:bold;} .imagen { float:left; height:100px; }  .imagen img { background-color:#FFFFFF; width:150px; } .description { font-size:9px; } .col1 { width: 200px; } .col2 { width: 250px;mso-number-format:"\@";}
+</style><body><div id="contenedor" ><div style="width:100%; text-align:center; " ><div class="imagen"> <img src="E:\Galileo\PCRC\Systems\InternetBanking\Produccion\Runtime\Builds\Galileo.PersonalBanking.UI.Web\App_Themes\Regional_Default\images\Logo.jpg" style="background-color:#FFFFFF;"/></div><div> <label class="subTitle">BANCO PROMERICA DE COSTA RICA SOCIEDAD ANONIMA.</label> <br/> <label class="subTitle">C&eacutedula Jur&iacutedica: 3-101-127487</label> <br/> <label class="subTitle">Estado de Cuenta Mensual al 30/11/2024</label> <br/> <br/></div></div><div style="width:115%; "><div style="width:100%;"><table style="width:85%;"><tr> <td class="col1"> <label id="lblencabezado">Direcci&#243;n del Cliente</label> </td> <td class="col2"> <label class="multilinea">SANTA ANA FORUM 1 EDIFICIO E OFICINA CYBERFUEL</label></div> <td class="col1"></td> <td class="col2"></td></tr><tr> <td class="col1"> <label id="lblencabezado"> Cuenta IBAN:</label></td> <td class="col2"> <label>CR48011610400023403332</label></td> <td class="col1"></td> <td class="col2"></td></tr><tr> <td class="col1"> <label id="lblencabezado"> N&#250;mero de cuenta:</label></td> <td class="col2"> <label>40000002340333</label></td> <td class="col1">
+<label id="lblencabezado">Disponible al 30/11/2024:</label></td> <td class="col2"> <label>190,729.24</label></td></tr><tr> <td class="col1"> <label id="lblencabezado">Cliente:</label></td> <td class="col2"> <label>CYBERFUEL SOCIEDAD ANONIMA</label></td> <td class="col1"></td> <td class="col2"></td></tr><tr> <td class="col1"> <label id="lblencabezado">Producto:</label></td> <td class="col2"> <label>PREMIA ELECTRONICA BASICA DOLARES</label></td> <td class="col1"></td> <td class="col2"></td></tr><tr> <td class="col1"> <label id="lblencabezado">Tarjeta de D&#233;bito relacionada a cuenta (En caso de haberla):</label></td> <td class="col2"> <label></label></td> <td class="col1"> <label id="lblencabezado">Moneda</label></td> <td class="col2"> <label>DOLARES ESTADOUNIDENSES</label></div></tr></table></div></div><div style="width:100%; padding-top:10px;"><table style="width:115%; padding-top:10px;"><tr> <td> <table border="0">
+	<tr>
+		<td align="left">Fecha</td>
+		<td align="left">Documento</td>
+		<td align="left">Concepto</td>
+		<td align="left">Lugar</td>
+		<td align="left">Descripci&#243;n</td>
+		<td align="right">Monto</td>
+		<td align="right">Saldo</td>
+	</tr>
+	<tr>
+		<td align="left">Saldo Inicial</td>
+		<td align="left"></td>
+		<td align="left"></td>
+		<td align="left"></td>
+		<td align="left"></td>
+		<td align="right"></td>
+		<td align="right">202,804.07</td>
+	</tr>
+	<tr>
+		<td align="left">1/11/2024</td>
+		<td align="left">56323875</td>
+		<td align="left">DEBITO POR TRANSFERENCIA INTERNET</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">TEF. ELEC Abono a Cta por pagar de Cyber</td>
+		<td align="right">-12,000.00</td>
+		<td align="right">190,804.07</td>
+	</tr>
+	<tr>
+		<td align="left">1/11/2024</td>
+		<td align="left">563422943</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="right">2.61</td>
+		<td align="right">190,806.68</td>
+	</tr>
+	<tr>
+		<td align="left">2/11/2024</td>
+		<td align="left">563642692</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="right">2.61</td>
+		<td align="right">190,809.29</td>
+	</tr>
+	<tr>
+		<td align="left">3/11/2024</td>
+		<td align="left">563809053</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="right">2.61</td>
+		<td align="right">190,811.90</td>
+	</tr>
+	<tr>
+		<td align="left">4/11/2024</td>
+		<td align="left">11436418</td>
+		<td align="left">CREDITO POR DTR IB</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">Cr&#233;dito por DTR a cuenta 40000002340333</td>
+		<td align="right">10,000.00</td>
+		<td align="right">200,811.90</td>
+	</tr>
+	<tr>
+		<td align="left">4/11/2024</td>
+		<td align="left">564009588</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="right">4.40</td>
+		<td align="right">200,816.30</td>
+	</tr>
+	<tr>
+		<td align="left">5/11/2024</td>
+		<td align="left">564207344</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="right">4.40</td>
+		<td align="right">200,820.70</td>
+	</tr>
+	<tr>
+		<td align="left">6/11/2024</td>
+		<td align="left">564410727</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="right">4.40</td>
+		<td align="right">200,825.10</td>
+	</tr>
+	<tr>
+		<td align="left">7/11/2024</td>
+		<td align="left">564597024</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="right">4.40</td>
+		<td align="right">200,829.50</td>
+	</tr>
+	<tr>
+		<td align="left">8/11/2024</td>
+		<td align="left">11467746</td>
+		<td align="left">CREDITO POR DTR IB</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">Cr&#233;dito por DTR a cuenta 40000002340333</td>
+		<td align="right">19,000.00</td>
+		<td align="right">219,829.50</td>
+	</tr>
+	<tr>
+		<td align="left">8/11/2024</td>
+		<td align="left">564805954</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="right">4.82</td>
+		<td align="right">219,834.32</td>
+	</tr>
+	<tr>
+		<td align="left">9/11/2024</td>
+		<td align="left">564972736</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="right">4.82</td>
+		<td align="right">219,839.14</td>
+	</tr>
+	<tr>
+		<td align="left">10/11/2024</td>
+		<td align="left">565110867</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="right">4.82</td>
+		<td align="right">219,843.96</td>
+	</tr>
+	<tr>
+		<td align="left">11/11/2024</td>
+		<td align="left">56515925</td>
+		<td align="left">CREDITO POR TRANSFERENCIA INTERNET</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">TEF. ELEC Reintegro con tarjeta erronea </td>
+		<td align="right">55.98</td>
+		<td align="right">219,899.94</td>
+	</tr>
+	<tr>
+		<td align="left">11/11/2024</td>
+		<td align="left">565286654</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="right">4.82</td>
+		<td align="right">219,904.76</td>
+	</tr>
+	<tr>
+		<td align="left">12/11/2024</td>
+		<td align="left">11493373</td>
+		<td align="left">CREDITO POR DTR IB</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">Cr&#233;dito por DTR a cuenta 40000002340333</td>
+		<td align="right">15,000.00</td>
+		<td align="right">234,904.76</td>
+	</tr>
+	<tr>
+		<td align="left">12/11/2024</td>
+		<td align="left">565459228</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="right">5.15</td>
+		<td align="right">234,909.91</td>
+	</tr>
+	<tr>
+		<td align="left">13/11/2024</td>
+		<td align="left">56553848</td>
+		<td align="left">DEBITO POR TRANSFERENCIA INTERNET</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">TEF. ELEC Cambio dol a Cyberfuel SA TC50</td>
+		<td align="right">-5,893.91</td>
+		<td align="right">229,016.00</td>
+	</tr>
+	<tr>
+		<td align="left">13/11/2024</td>
+		<td align="left">56555404</td>
+		<td align="left">CREDITO POR TRANSFERENCIA INTERNET</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">TEF. ELEC Fact 373200 Cuenta 15936</td>
+		<td align="right">124.18</td>
+		<td align="right">229,140.18</td>
+	</tr>
+	<tr>
+		<td align="left">13/11/2024</td>
+		<td align="left">565638129</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="right">5.02</td>
+		<td align="right">229,145.20</td>
+	</tr>
+	<tr>
+		<td align="left">14/11/2024</td>
+		<td align="left">565862322</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="right">5.02</td>
+		<td align="right">229,150.22</td>
+	</tr>
+	<tr>
+		<td align="left">15/11/2024</td>
+		<td align="left">12219661</td>
+		<td align="left">DEBITO DOL P/TRAN.DOL A BANCOS</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">D&#233;bito en tiempo real a CB-CR48011610</td>
+		<td align="right">-20,040.00</td>
+		<td align="right">209,110.22</td>
+	</tr>
+	<tr>
+		<td align="left">15/11/2024</td>
+		<td align="left">11511153</td>
+		<td align="left">CREDITO POR DTR IB</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">Cr&#233;dito por DTR a cuenta 40000002340333</td>
+		<td align="right">19,000.00</td>
+		<td align="right">228,110.22</td>
+	</tr>
+	<tr>
+		<td align="left">15/11/2024</td>
+		<td align="left">2906179</td>
+		<td align="left">DEBITO PAGO TC CD</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">Pago Tarjeta/ Pago de Tarjeta -Pago elec</td>
+		<td align="right">-6,021.26</td>
+		<td align="right">222,088.96</td>
+	</tr>
+	<tr>
+		<td align="left">15/11/2024</td>
+		<td align="left">566188469</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="right">4.87</td>
+		<td align="right">222,093.83</td>
+	</tr>
+	<tr>
+		<td align="left">16/11/2024</td>
+		<td align="left">566402833</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="right">4.87</td>
+		<td align="right">222,098.70</td>
+	</tr>
+	<tr>
+		<td align="left">17/11/2024</td>
+		<td align="left">566576993</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="right">4.87</td>
+		<td align="right">222,103.57</td>
+	</tr>
+	<tr>
+		<td align="left">18/11/2024</td>
+		<td align="left">56664522</td>
+		<td align="left">CREDITO POR TRANSFERENCIA INTERNET</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">TEF. ELEC Pago factura 373953</td>
+		<td align="right">13.55</td>
+		<td align="right">222,117.12</td>
+	</tr>
+	<tr>
+		<td align="left">18/11/2024</td>
+		<td align="left">12222148</td>
+		<td align="left">DEBITO DOL P/TRAN.DOL A BANCOS</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">D&#233;bito en tiempo real a CB-CR48011610</td>
+		<td align="right">-30,060.00</td>
+		<td align="right">192,057.12</td>
+	</tr>
+	<tr>
+		<td align="left">18/11/2024</td>
+		<td align="left">566796918</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="right">2.63</td>
+		<td align="right">192,059.75</td>
+	</tr>
+	<tr>
+		<td align="left">19/11/2024</td>
+		<td align="left">566994474</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="right">2.63</td>
+		<td align="right">192,062.38</td>
+	</tr>
+	<tr>
+		<td align="left">20/11/2024</td>
+		<td align="left">567196932</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="right">2.63</td>
+		<td align="right">192,065.01</td>
+	</tr>
+	<tr>
+		<td align="left">21/11/2024</td>
+		<td align="left">11542668</td>
+		<td align="left">CREDITO POR DTR IB</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">Cr&#233;dito por DTR a cuenta 40000002340333</td>
+		<td align="right">12,000.00</td>
+		<td align="right">204,065.01</td>
+	</tr>
+	<tr>
+		<td align="left">21/11/2024</td>
+		<td align="left">567390040</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="right">4.47</td>
+		<td align="right">204,069.48</td>
+	</tr>
+	<tr>
+		<td align="left">22/11/2024</td>
+		<td align="left">11548769</td>
+		<td align="left">CREDITO POR DTR IB</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">Cr&#233;dito por DTR a cuenta 40000002340333</td>
+		<td align="right">43,000.00</td>
+		<td align="right">247,069.48</td>
+	</tr>
+	<tr>
+		<td align="left">22/11/2024</td>
+		<td align="left">567599413</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="right">5.41</td>
+		<td align="right">247,074.89</td>
+	</tr>
+	<tr>
+		<td align="left">23/11/2024</td>
+		<td align="left">56765709</td>
+		<td align="left">DEBITO POR TRANSFERENCIA INTERNET</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">TEF. ELEC Fact 149 Alq Inmob Ilanca</td>
+		<td align="right">-7,119.00</td>
+		<td align="right">239,955.89</td>
+	</tr>
+	<tr>
+		<td align="left">23/11/2024</td>
+		<td align="left">56766471</td>
+		<td align="left">CREDITO POR TRANSFERENCIA INTERNET</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">TEF. ELEC Factura Profesional 115700239</td>
+		<td align="right">27.11</td>
+		<td align="right">239,983.00</td>
+	</tr>
+	<tr>
+		<td align="left">23/11/2024</td>
+		<td align="left">567771534</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="right">5.26</td>
+		<td align="right">239,988.26</td>
+	</tr>
+	<tr>
+		<td align="left">24/11/2024</td>
+		<td align="left">567919750</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="right">5.26</td>
+		<td align="right">239,993.52</td>
+	</tr>
+	<tr>
+		<td align="left">25/11/2024</td>
+		<td align="left">56797249</td>
+		<td align="left">DEBITO POR TRANSFERENCIA INTERNET</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">TEF. ELEC Noction 24114</td>
+		<td align="right">-950.00</td>
+		<td align="right">239,043.52</td>
+	</tr>
+	<tr>
+		<td align="left">25/11/2024</td>
+		<td align="left">54816319</td>
+		<td align="left">DEBITO DOL P/TRAN.DOL A BANCOS</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">Traslado_de_Fondos_PRO_a_BAC_dol</td>
+		<td align="right">-9,043.52</td>
+		<td align="right">230,000.00</td>
+	</tr>
+	<tr>
+		<td align="left">25/11/2024</td>
+		<td align="left">568097538</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="right">5.04</td>
+		<td align="right">230,005.04</td>
+	</tr>
+	<tr>
+		<td align="left">26/11/2024</td>
+		<td align="left">568306919</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="right">4.83</td>
+		<td align="right">230,009.87</td>
+	</tr>
+	<tr>
+		<td align="left">27/11/2024</td>
+		<td align="left">356182</td>
+		<td align="left">DEBITO DOL P/TRAN. DOL A BANCOS IB</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">WT:PANAMA/WOODMONT INVESTMENTS S.A.</td>
+		<td align="right">-9,350.00</td>
+		<td align="right">220,659.87</td>
+	</tr>
+	<tr>
+		<td align="left">27/11/2024</td>
+		<td align="left">356182</td>
+		<td align="left">DEBITO COMISI&#211;N TRANSFERENCIA IB</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">Cargos por WT:PANAMA</td>
+		<td align="right">-5.00</td>
+		<td align="right">220,654.87</td>
+	</tr>
+	<tr>
+		<td align="left">27/11/2024</td>
+		<td align="left">12241624</td>
+		<td align="left">DEBITO DOL P/TRAN.DOL A BANCOS</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">D&#233;bito en tiempo real a CB-CR48011610</td>
+		<td align="right">-28,056.00</td>
+		<td align="right">192,598.87</td>
+	</tr>
+	<tr>
+		<td align="left">27/11/2024</td>
+		<td align="left">56839086</td>
+		<td align="left">DEBITO POR TRANSFERENCIA INTERNET</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">TEF. ELEC Cabio divisas TC 511.65</td>
+		<td align="right">-30,000.00</td>
+		<td align="right">162,598.87</td>
+	</tr>
+	<tr>
+		<td align="left">27/11/2024</td>
+		<td align="left">568495571</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="right">2.23</td>
+		<td align="right">162,601.10</td>
+	</tr>
+	<tr>
+		<td align="left">28/11/2024</td>
+		<td align="left">56859645</td>
+		<td align="left">CREDITO POR TRANSFERENCIA INTERNET</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">TEF. ELEC Pago Fact 373433 ISS</td>
+		<td align="right">259.98</td>
+		<td align="right">162,861.08</td>
+	</tr>
+	<tr>
+		<td align="left">28/11/2024</td>
+		<td align="left">568729086</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="right">2.23</td>
+		<td align="right">162,863.31</td>
+	</tr>
+	<tr>
+		<td align="left">29/11/2024</td>
+		<td align="left">11583917</td>
+		<td align="left">CREDITO POR DTR IB</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">Cr&#233;dito por DTR a cuenta 40000002340333</td>
+		<td align="right">40,000.00</td>
+		<td align="right">202,863.31</td>
+	</tr>
+	<tr>
+		<td align="left">29/11/2024</td>
+		<td align="left">569062285</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="right">4.44</td>
+		<td align="right">202,867.75</td>
+	</tr>
+	<tr>
+		<td align="left">30/11/2024</td>
+		<td align="left">569374438</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="left">PROMERICA-CR</td>
+		<td align="left">CAPITALIZACION NORMAL DE INTERESES</td>
+		<td align="right">4.44</td>
+		<td align="right">202,872.19</td>
+	</tr>
+</table>
+ <td><tr></table> <br/><table><tr> <td class="header" style="width:300px; text-align:center;"> Saldos al Corte</td>
+<td class="header" style="width:280px; text-align:center; "> Tasa de Inter&#233;s Pasiva Anual</td></tr><tr> <td><table><tr> <td class="FormTDSubTitle left" style="width: 170px; text-align:left;"> Saldo anterior</td> <td class="FormTDText right" style="width: 100px; text-align:right;"> 202,804.07</td></tr><tr> <td style="width: 170px; text-align:left;"> Total Cr&#233;ditos</td> <td class="FormTDText right" style="width: 100px; text-align:right;"> 158,606.81</td></tr><tr> <td style="width: 170px; text-align:left;"> Total D&#233;bitos y Cargos</td> <td class="FormTDText right" style="width: 100px; text-align:right;"> 158,538.69</td></tr><tr> <td style="width: 170px; text-align:left;"> Saldo Parcial Actual</td> <td class="FormTDText right" style="width: 100px; text-align:right;"> 202,872.19</td></tr><tr> <td style="width: 170px; text-align:left;"> Saldo en flote</td> <td class="FormTDText right" style="width: 100px; text-align:right;"> 0.00</td></tr><tr>
+<td style="width: 170px; text-align:left;"> Saldo consultado y congelado</td> <td class="FormTDText right" style="width: 100px; text-align:right;"> 150.00</td></tr><tr> <td style="width: 170px; text-align:left;"> Saldo promedio del mes</td> <td class="FormTDText right" style="width: 100px; text-align:right;"> 209,998.14</td></tr><tr> <td style="width: 170px; text-align:left;"> Disponible</td> <td class="FormTDText right" style="width: 100px; text-align:right;"> 202,722.19</td></tr></table></td> <td><table border="0">
+	<tr>
+		<td>L&#237;mite Inferior</td>
+		<td>L&#237;mite Superior</td>
+		<td>Tasa</td>
+	</tr>
+	<tr>
+		<td align="right">0</td>
+		<td align="right">75000</td>
+		<td align="right">0</td>
+	</tr>
+	<tr>
+		<td align="right">75000.01</td>
+		<td align="right">199999.99</td>
+		<td align="right">0.50</td>
+	</tr>
+	<tr>
+		<td align="right">200000</td>
+		<td align="right">299999.99</td>
+		<td align="right">0.80</td>
+	</tr>
+	<tr>
+		<td align="right">300000</td>
+		<td align="right">499999.99</td>
+		<td align="right">1.25</td>
+	</tr>
+	<tr>
+		<td align="right">500000</td>
+		<td align="right">999999.99</td>
+		<td align="right">1.50</td>
+	</tr>
+	<tr>
+		<td align="right">1000000</td>
+		<td align="right">9999999.99</td>
+		<td align="right">1.75</td>
+	</tr>
+	<tr>
+		<td align="right">10000000</td>
+		<td align="right">9999999999.99</td>
+		<td align="right">1</td>
+	</tr>
+</table>
+</td></tr></table> <br/><table><tr> <td style="text-align:center; font-size:16px; color:Black; font-family:Arial; font-weight:bold; text-decoration:underline;">Mensajes Importantes</td></tr><tr> <td><table border="0">
+	<tr>
+		<td></td>
+	</tr>
+	<tr>
+		<td align="left">ESTIMADO CLIENTE: LE INFORMAMOS QUE LAS CUENTAS DE EFECTIVO Y LAS TARJETAS DE D&#201;BITO QUE TENGAN  6 MESES O M&#193;S SIN ACTIVIDAD PODR&#205;AN SER CANCELADAS POR SU SEGURIDAD. ES UN GUSTO SERVIRLE.</td>
+	</tr>
+</table>
+</td></tr></table></div></div></body></html>
