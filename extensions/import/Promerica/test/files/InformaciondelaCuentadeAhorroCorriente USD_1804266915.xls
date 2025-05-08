@@ -1,12 +1,12 @@
-<html><style>body {  font-size: 12;  text-align:center;  margin:0 auto; }  #contenedor{width:85%; margin-bottom:100px; text-align:center;}  table { font-size: 12;} table tr { line-height:15px; } table tr td { padding-left:5px; padding-right:0; }  #table2 { margin-left:1px; border-collapse: collapse; border-spacing: 0; }  table .header{ background-color:#00703C; color:#FFFFFF; } table .subHeader { background-color:#C9E7A8; color:#424242; }  #rowSep { height:15px; } .tdNumber { text-align:right; padding-right:5px; }  .tdMarcadoLF { text-align:left; background-color:#C9E7A8;font-weight:bold; }  .tdMarcadoRG { text-align:right; background-color:#C9E7A8; font-weight:bold; }  .line { background-color:#C9E7A8; } h1 { color:#00703C; text-align:center; font-weight: 300; font-size:250%; padding-top:20px;}  .subTitle { font-size:18px; font-weight:bold; } .labelNumber {display:inline-block; width: 100px; text-align:right; }  #lblencabezado { font-weight:bold;} .imagen { float:left; height:100px; }  .imagen img { background-color:#FFFFFF; width:150px; } .description { font-size:9px; } .col1 { width: 200px; } .col2 { width: 250px;mso-number-format:"\@";}
-</style><body><div id="contenedor" ><div style="width:100%; text-align:center; " ><div class="imagen"> <img src="E:\Galileo\PCRC\Systems\InternetBanking\Produccion\Runtime\Builds\Galileo.PersonalBanking.UI.Web\App_Themes\Regional_Default\images\Logo.jpg" style="background-color:#FFFFFF;"/></div><div> <label class="subTitle">BANCO PROMERICA DE COSTA RICA SOCIEDAD ANONIMA.</label> <br/> <label class="subTitle">C&eacutedula Jur&iacutedica: 3-101-127487</label> <br/> <label class="subTitle">Estado de Cuenta Mensual al 30/11/2024</label> <br/> <br/></div></div><div style="width:115%; "><div style="width:100%;"><table style="width:85%;"><tr> <td class="col1"> <label id="lblencabezado">Direcci&#243;n del Cliente</label> </td> <td class="col2"> <label class="multilinea">SANTA ANA FORUM 1 EDIFICIO E OFICINA CYBERFUEL</label></div> <td class="col1"></td> <td class="col2"></td></tr><tr> <td class="col1"> <label id="lblencabezado"> Cuenta IBAN:</label></td> <td class="col2"> <label>CR48011610400023403332</label></td> <td class="col1"></td> <td class="col2"></td></tr><tr> <td class="col1"> <label id="lblencabezado"> N&#250;mero de cuenta:</label></td> <td class="col2"> <label>40000002340333</label></td> <td class="col1">
-<label id="lblencabezado">Disponible al 30/11/2024:</label></td> <td class="col2"> <label>190,729.24</label></td></tr><tr> <td class="col1"> <label id="lblencabezado">Cliente:</label></td> <td class="col2"> <label>CYBERFUEL SOCIEDAD ANONIMA</label></td> <td class="col1"></td> <td class="col2"></td></tr><tr> <td class="col1"> <label id="lblencabezado">Producto:</label></td> <td class="col2"> <label>PREMIA ELECTRONICA BASICA DOLARES</label></td> <td class="col1"></td> <td class="col2"></td></tr><tr> <td class="col1"> <label id="lblencabezado">Tarjeta de D&#233;bito relacionada a cuenta (En caso de haberla):</label></td> <td class="col2"> <label></label></td> <td class="col1"> <label id="lblencabezado">Moneda</label></td> <td class="col2"> <label>DOLARES ESTADOUNIDENSES</label></div></tr></table></div></div><div style="width:100%; padding-top:10px;"><table style="width:115%; padding-top:10px;"><tr> <td> <table border="0">
+<html><style>body {  font-size: 12\t  text-align:center\t  margin:0 auto\t }  #contenedor{width:85%\t margin-bottom:100px\t text-align:center\t}  table { font-size: 12\t} table tr { line-height:15px\t } table tr td { padding-left:5px\t padding-right:0\t }  #table2 { margin-left:1px\t border-collapse: collapse\t border-spacing: 0\t }  table .header{ background-color:#00703C\t color:#FFFFFF\t } table .subHeader { background-color:#C9E7A8\t color:#424242\t }  #rowSep { height:15px\t } .tdNumber { text-align:right\t padding-right:5px\t }  .tdMarcadoLF { text-align:left\t background-color:#C9E7A8\tfont-weight:bold\t }  .tdMarcadoRG { text-align:right\t background-color:#C9E7A8\t font-weight:bold\t }  .line { background-color:#C9E7A8\t } h1 { color:#00703C\t text-align:center\t font-weight: 300\t font-size:250%\t padding-top:20px\t}  .subTitle { font-size:18px\t font-weight:bold\t } .labelNumber {display:inline-block\t width: 100px\t text-align:right\t }  #lblencabezado { font-weight:bold\t} .imagen { float:left\t height:100px\t }  .imagen img { background-color:#FFFFFF\t width:150px\t } .description { font-size:9px\t } .col1 { width: 200px\t } .col2 { width: 250px\tmso-number-format:"\@"\t}
+</style><body><div id="contenedor" ><div style="width:100%\t text-align:center\t " ><div class="imagen"> <img src="E:\Galileo\PCRC\Systems\InternetBanking\Produccion\Runtime\Builds\Galileo.PersonalBanking.UI.Web\App_Themes\Regional_Default\images\Logo.jpg" style="background-color:#FFFFFF\t"/></div><div> <label class="subTitle">BANCO PROMERICA DE COSTA RICA SOCIEDAD ANONIMA.</label> <br/> <label class="subTitle">C&eacutedula Jur&iacutedica: 3-101-127487</label> <br/> <label class="subTitle">Estado de Cuenta Mensual al 30/11/2024</label> <br/> <br/></div></div><div style="width:115%\t "><div style="width:100%\t"><table style="width:85%\t"><tr> <td class="col1"> <label id="lblencabezado">Direcci&#243\tn del Cliente</label> </td> <td class="col2"> <label class="multilinea">SANTA ANA FORUM 1 EDIFICIO E OFICINA CYBERFUEL</label></div> <td class="col1"></td> <td class="col2"></td></tr><tr> <td class="col1"> <label id="lblencabezado"> Cuenta IBAN:</label></td> <td class="col2"> <label>CR48011610400023403332</label></td> <td class="col1"></td> <td class="col2"></td></tr><tr> <td class="col1"> <label id="lblencabezado"> N&#250\tmero de cuenta:</label></td> <td class="col2"> <label>40000002340333</label></td> <td class="col1">
+<label id="lblencabezado">Disponible al 30/11/2024:</label></td> <td class="col2"> <label>190,729.24</label></td></tr><tr> <td class="col1"> <label id="lblencabezado">Cliente:</label></td> <td class="col2"> <label>CYBERFUEL SOCIEDAD ANONIMA</label></td> <td class="col1"></td> <td class="col2"></td></tr><tr> <td class="col1"> <label id="lblencabezado">Producto:</label></td> <td class="col2"> <label>PREMIA ELECTRONICA BASICA DOLARES</label></td> <td class="col1"></td> <td class="col2"></td></tr><tr> <td class="col1"> <label id="lblencabezado">Tarjeta de D&#233\tbito relacionada a cuenta (En caso de haberla):</label></td> <td class="col2"> <label></label></td> <td class="col1"> <label id="lblencabezado">Moneda</label></td> <td class="col2"> <label>DOLARES ESTADOUNIDENSES</label></div></tr></table></div></div><div style="width:100%\t padding-top:10px\t"><table style="width:115%\t padding-top:10px\t"><tr> <td> <table border="0">
 	<tr>
 		<td align="left">Fecha</td>
 		<td align="left">Documento</td>
 		<td align="left">Concepto</td>
 		<td align="left">Lugar</td>
-		<td align="left">Descripci&#243;n</td>
+		<td align="left">Descripci&#243\tn</td>
 		<td align="right">Monto</td>
 		<td align="right">Saldo</td>
 	</tr>
@@ -60,7 +60,7 @@
 		<td align="left">11436418</td>
 		<td align="left">CREDITO POR DTR IB</td>
 		<td align="left">PROMERICA-CR</td>
-		<td align="left">Cr&#233;dito por DTR a cuenta 40000002340333</td>
+		<td align="left">Cr&#233\tdito por DTR a cuenta 40000002340333</td>
 		<td align="right">10,000.00</td>
 		<td align="right">200,811.90</td>
 	</tr>
@@ -105,7 +105,7 @@
 		<td align="left">11467746</td>
 		<td align="left">CREDITO POR DTR IB</td>
 		<td align="left">PROMERICA-CR</td>
-		<td align="left">Cr&#233;dito por DTR a cuenta 40000002340333</td>
+		<td align="left">Cr&#233\tdito por DTR a cuenta 40000002340333</td>
 		<td align="right">19,000.00</td>
 		<td align="right">219,829.50</td>
 	</tr>
@@ -159,7 +159,7 @@
 		<td align="left">11493373</td>
 		<td align="left">CREDITO POR DTR IB</td>
 		<td align="left">PROMERICA-CR</td>
-		<td align="left">Cr&#233;dito por DTR a cuenta 40000002340333</td>
+		<td align="left">Cr&#233\tdito por DTR a cuenta 40000002340333</td>
 		<td align="right">15,000.00</td>
 		<td align="right">234,904.76</td>
 	</tr>
@@ -213,7 +213,7 @@
 		<td align="left">12219661</td>
 		<td align="left">DEBITO DOL P/TRAN.DOL A BANCOS</td>
 		<td align="left">PROMERICA-CR</td>
-		<td align="left">D&#233;bito en tiempo real a CB-CR48011610</td>
+		<td align="left">D&#233\tbito en tiempo real a CB-CR48011610</td>
 		<td align="right">-20,040.00</td>
 		<td align="right">209,110.22</td>
 	</tr>
@@ -222,7 +222,7 @@
 		<td align="left">11511153</td>
 		<td align="left">CREDITO POR DTR IB</td>
 		<td align="left">PROMERICA-CR</td>
-		<td align="left">Cr&#233;dito por DTR a cuenta 40000002340333</td>
+		<td align="left">Cr&#233\tdito por DTR a cuenta 40000002340333</td>
 		<td align="right">19,000.00</td>
 		<td align="right">228,110.22</td>
 	</tr>
@@ -276,7 +276,7 @@
 		<td align="left">12222148</td>
 		<td align="left">DEBITO DOL P/TRAN.DOL A BANCOS</td>
 		<td align="left">PROMERICA-CR</td>
-		<td align="left">D&#233;bito en tiempo real a CB-CR48011610</td>
+		<td align="left">D&#233\tbito en tiempo real a CB-CR48011610</td>
 		<td align="right">-30,060.00</td>
 		<td align="right">192,057.12</td>
 	</tr>
@@ -312,7 +312,7 @@
 		<td align="left">11542668</td>
 		<td align="left">CREDITO POR DTR IB</td>
 		<td align="left">PROMERICA-CR</td>
-		<td align="left">Cr&#233;dito por DTR a cuenta 40000002340333</td>
+		<td align="left">Cr&#233\tdito por DTR a cuenta 40000002340333</td>
 		<td align="right">12,000.00</td>
 		<td align="right">204,065.01</td>
 	</tr>
@@ -330,7 +330,7 @@
 		<td align="left">11548769</td>
 		<td align="left">CREDITO POR DTR IB</td>
 		<td align="left">PROMERICA-CR</td>
-		<td align="left">Cr&#233;dito por DTR a cuenta 40000002340333</td>
+		<td align="left">Cr&#233\tdito por DTR a cuenta 40000002340333</td>
 		<td align="right">43,000.00</td>
 		<td align="right">247,069.48</td>
 	</tr>
@@ -427,7 +427,7 @@
 	<tr>
 		<td align="left">27/11/2024</td>
 		<td align="left">356182</td>
-		<td align="left">DEBITO COMISI&#211;N TRANSFERENCIA IB</td>
+		<td align="left">DEBITO COMISI&#211\tN TRANSFERENCIA IB</td>
 		<td align="left">PROMERICA-CR</td>
 		<td align="left">Cargos por WT:PANAMA</td>
 		<td align="right">-5.00</td>
@@ -438,7 +438,7 @@
 		<td align="left">12241624</td>
 		<td align="left">DEBITO DOL P/TRAN.DOL A BANCOS</td>
 		<td align="left">PROMERICA-CR</td>
-		<td align="left">D&#233;bito en tiempo real a CB-CR48011610</td>
+		<td align="left">D&#233\tbito en tiempo real a CB-CR48011610</td>
 		<td align="right">-28,056.00</td>
 		<td align="right">192,598.87</td>
 	</tr>
@@ -483,7 +483,7 @@
 		<td align="left">11583917</td>
 		<td align="left">CREDITO POR DTR IB</td>
 		<td align="left">PROMERICA-CR</td>
-		<td align="left">Cr&#233;dito por DTR a cuenta 40000002340333</td>
+		<td align="left">Cr&#233\tdito por DTR a cuenta 40000002340333</td>
 		<td align="right">40,000.00</td>
 		<td align="right">202,863.31</td>
 	</tr>
@@ -506,12 +506,12 @@
 		<td align="right">202,872.19</td>
 	</tr>
 </table>
- <td><tr></table> <br/><table><tr> <td class="header" style="width:300px; text-align:center;"> Saldos al Corte</td>
-<td class="header" style="width:280px; text-align:center; "> Tasa de Inter&#233;s Pasiva Anual</td></tr><tr> <td><table><tr> <td class="FormTDSubTitle left" style="width: 170px; text-align:left;"> Saldo anterior</td> <td class="FormTDText right" style="width: 100px; text-align:right;"> 202,804.07</td></tr><tr> <td style="width: 170px; text-align:left;"> Total Cr&#233;ditos</td> <td class="FormTDText right" style="width: 100px; text-align:right;"> 158,606.81</td></tr><tr> <td style="width: 170px; text-align:left;"> Total D&#233;bitos y Cargos</td> <td class="FormTDText right" style="width: 100px; text-align:right;"> 158,538.69</td></tr><tr> <td style="width: 170px; text-align:left;"> Saldo Parcial Actual</td> <td class="FormTDText right" style="width: 100px; text-align:right;"> 202,872.19</td></tr><tr> <td style="width: 170px; text-align:left;"> Saldo en flote</td> <td class="FormTDText right" style="width: 100px; text-align:right;"> 0.00</td></tr><tr>
-<td style="width: 170px; text-align:left;"> Saldo consultado y congelado</td> <td class="FormTDText right" style="width: 100px; text-align:right;"> 150.00</td></tr><tr> <td style="width: 170px; text-align:left;"> Saldo promedio del mes</td> <td class="FormTDText right" style="width: 100px; text-align:right;"> 209,998.14</td></tr><tr> <td style="width: 170px; text-align:left;"> Disponible</td> <td class="FormTDText right" style="width: 100px; text-align:right;"> 202,722.19</td></tr></table></td> <td><table border="0">
+ <td><tr></table> <br/><table><tr> <td class="header" style="width:300px\t text-align:center\t"> Saldos al Corte</td>
+<td class="header" style="width:280px\t text-align:center\t "> Tasa de Inter&#233\ts Pasiva Anual</td></tr><tr> <td><table><tr> <td class="FormTDSubTitle left" style="width: 170px\t text-align:left\t"> Saldo anterior</td> <td class="FormTDText right" style="width: 100px\t text-align:right\t"> 202,804.07</td></tr><tr> <td style="width: 170px\t text-align:left\t"> Total Cr&#233\tditos</td> <td class="FormTDText right" style="width: 100px\t text-align:right\t"> 158,606.81</td></tr><tr> <td style="width: 170px\t text-align:left\t"> Total D&#233\tbitos y Cargos</td> <td class="FormTDText right" style="width: 100px\t text-align:right\t"> 158,538.69</td></tr><tr> <td style="width: 170px\t text-align:left\t"> Saldo Parcial Actual</td> <td class="FormTDText right" style="width: 100px\t text-align:right\t"> 202,872.19</td></tr><tr> <td style="width: 170px\t text-align:left\t"> Saldo en flote</td> <td class="FormTDText right" style="width: 100px\t text-align:right\t"> 0.00</td></tr><tr>
+<td style="width: 170px\t text-align:left\t"> Saldo consultado y congelado</td> <td class="FormTDText right" style="width: 100px\t text-align:right\t"> 150.00</td></tr><tr> <td style="width: 170px\t text-align:left\t"> Saldo promedio del mes</td> <td class="FormTDText right" style="width: 100px\t text-align:right\t"> 209,998.14</td></tr><tr> <td style="width: 170px\t text-align:left\t"> Disponible</td> <td class="FormTDText right" style="width: 100px\t text-align:right\t"> 202,722.19</td></tr></table></td> <td><table border="0">
 	<tr>
-		<td>L&#237;mite Inferior</td>
-		<td>L&#237;mite Superior</td>
+		<td>L&#237\tmite Inferior</td>
+		<td>L&#237\tmite Superior</td>
 		<td>Tasa</td>
 	</tr>
 	<tr>
@@ -550,12 +550,12 @@
 		<td align="right">1</td>
 	</tr>
 </table>
-</td></tr></table> <br/><table><tr> <td style="text-align:center; font-size:16px; color:Black; font-family:Arial; font-weight:bold; text-decoration:underline;">Mensajes Importantes</td></tr><tr> <td><table border="0">
+</td></tr></table> <br/><table><tr> <td style="text-align:center\t font-size:16px\t color:Black\t font-family:Arial\t font-weight:bold\t text-decoration:underline\t">Mensajes Importantes</td></tr><tr> <td><table border="0">
 	<tr>
 		<td></td>
 	</tr>
 	<tr>
-		<td align="left">ESTIMADO CLIENTE: LE INFORMAMOS QUE LAS CUENTAS DE EFECTIVO Y LAS TARJETAS DE D&#201;BITO QUE TENGAN  6 MESES O M&#193;S SIN ACTIVIDAD PODR&#205;AN SER CANCELADAS POR SU SEGURIDAD. ES UN GUSTO SERVIRLE.</td>
+		<td align="left">ESTIMADO CLIENTE: LE INFORMAMOS QUE LAS CUENTAS DE EFECTIVO Y LAS TARJETAS DE D&#201\tBITO QUE TENGAN  6 MESES O M&#193\tS SIN ACTIVIDAD PODR&#205\tAN SER CANCELADAS POR SU SEGURIDAD. ES UN GUSTO SERVIRLE.</td>
 	</tr>
 </table>
 </td></tr></table></div></div></body></html>

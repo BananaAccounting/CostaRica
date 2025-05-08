@@ -14,9 +14,11 @@
 //
 // @id = ch.banana.costarica.import.statement.promerica
 // @api = 1.0
-// @pubdate = 2025-03-14
+// @pubdate = 2025-05-08
 // @publisher = Banana.ch SA
-// @description = Promerica - Importar extracto de cuenta .csv
+// @description = Banco Promerica de Costa Rica - Import account statement (*.csv)
+// @description.en = Banco Promerica de Costa Rica - Import account statement (*.csv)
+// @description.es = Banco Promerica de Costa Rica - Importar estado de cuenta (*.csv)
 // @doctype = *
 // @docproperties =
 // @task = import.transactions
@@ -24,36 +26,47 @@
 // @inputdatasource = openfiledialog
 // @inputencoding = latin1
 // @inputfilefilter = Archivos de texto (*.txt *.csv);;Todos los archivo (*.*)
-// @includejs = ../import.utilities.js
+// @includejs = import.utilities.js
 
-function exec(inData) {
-
-    let banDoc = Banana.document;
-
-    if (!banDoc)
-        return "@cancel";
+function exec(inData, isTest) {
 
     var importUtilities = new ImportUtilities(Banana.document);
 
-    let promericaBankStatement = new PromericaBankStatement()
-    let form = promericaBankStatement.getFormattedData(inData, importUtilities);
-    if (promericaBankStatement.match(form))
-        return Banana.Converter.arrayToTsv(promericaBankStatement.convertCsvToIntermediaryData(form));
+    if (isTest !== true && !importUtilities.verifyBananaAdvancedVersion())
+        return "";
+
+    // Promerica Bank statement format 1
+    let promericaBankStatement1 = new PromericaBankStatementFormat1()
+    let formB1 = promericaBankStatement1.getFormattedData(inData, importUtilities);
+    if (promericaBankStatement1.match(formB1))
+        return Banana.Converter.arrayToTsv(promericaBankStatement1.convertCsvToIntermediaryData(formB1));
+
+    /* Promerica Credit Card statement format.
+
+    This format is not implemented yet as the transactions provided by the bank are in multiple currencies (CRC and USD) but each transaction
+    is just in one currency without any exchange rate. The ideal would be to have for each transactions the amount in both currencies to be able
+    at leat to decide to use the one or the other.
+    
+    let promericaCardStatement1 = new PromericaCardStatementFormat1()
+    let formC1 = promericaCardStatement1.getFormattedData(inData, importUtilities);
+    if (promericaCardStatement1.match(form))
+        return Banana.Converter.arrayToTsv(promericaCardStatement1.convertCsvToIntermediaryData(form));
+    **/
+
 
     importUtilities.getUnknownFormatError();
     return "";
 }
 
-var PromericaBankStatement = class PromericaBankStatement {
-    constructor(banDocument) {
+var PromericaBankStatementFormat1 = class PromericaBankStatementFormat1 {
+    constructor() {
         this.dateFormat = "dd.mm.yyyy";
-        this.banDocument = banDocument;
-        this.headerLineStart = 7;
-        this.dataLineStart = 8;
+        this.headerLineStart = 11;
+        this.dataLineStart = 13;
     }
 
     getFormattedData(inData, importUtilities) {
-        let transactions = Banana.Converter.csvToArray(inData, ";", '');
+        let transactions = Banana.Converter.csvToArray(inData, "\t", '');
         let columns = importUtilities.getHeaderData(transactions, this.headerLineStart); //array
         let rows = importUtilities.getRowData(transactions, this.dataLineStart); //array of array
         let form = [];
@@ -63,8 +76,6 @@ var PromericaBankStatement = class PromericaBankStatement {
     }
 
     match(transactionsData) {
-
-        Banana.Ui.showText(JSON.stringify(transactionsData));
 
         if (!transactionsData || transactionsData.length === 0)
             return false;
@@ -100,26 +111,42 @@ var PromericaBankStatement = class PromericaBankStatement {
                 transactionsToImport.push(this.mapTransaction(tr));
             }
         }
-
-
         // Sort rows by date
-        transactionsToImport = transactionsToImport.reverse();
+        //transactionsToImport = transactionsToImport.reverse();
 
         // Add header and return
-        var header = [
-            ["Date", "Description", "Expenses", "Income"]
-        ];
+        var header = [["Date", "Description", "ExternalReference", "Income", "Expenses"]];
         return header.concat(transactionsToImport);
     }
 
     mapTransaction(transaction) {
         var mappedLine = [];
-
         mappedLine.push(Banana.Converter.toInternalDateFormat(transaction["Fecha"], this.dateFormat));
-        mappedLine.push(transaction["Descripción"]);
-        mappedLine.push(Banana.Converter.toInternalNumberFormat(transaction["Débitos"], "."));
-        mappedLine.push(Banana.Converter.toInternalNumberFormat(transaction["Créditos"], "."));
-
+        mappedLine.push(this.getDescription(transaction));
+        mappedLine.push(transaction["Documento"]);
+        let amount = transaction["Monto"];
+        if (amount.indexOf("-") < 0) {
+            mappedLine.push(Banana.Converter.toInternalNumberFormat(amount, "."));
+            mappedLine.push("");
+        } else {
+            let clearAmount = amount.replace(/-/g, "");
+            mappedLine.push("");
+            mappedLine.push(Banana.Converter.toInternalNumberFormat(clearAmount, "."));
+        }
         return mappedLine;
+    }
+
+    getDescription(transaction) {
+        const description = transaction["Descripción"];
+        const description2 = transaction["Concepto"];
+        const description3 = transaction["Lugar"];
+        let completeDescription = description;
+        if (description2) {
+            completeDescription += " " + description2;
+        }
+        if (description3) {
+            completeDescription += " " + description3;
+        }
+        return completeDescription.trim();
     }
 }

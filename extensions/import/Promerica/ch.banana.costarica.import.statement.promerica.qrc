@@ -1,0 +1,7 @@
+<RCC>
+	<qresource prefix="/">
+		<file>ch.banana.costarica.import.statement.promerica.manifest.json</file>
+		<file>../import.utilities.js</file>
+		<file>ch.banana.costarica.import.statement.promerica.js</file>
+	</qresource>
+</RCC>

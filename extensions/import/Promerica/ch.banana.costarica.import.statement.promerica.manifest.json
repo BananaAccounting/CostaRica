@@ -1,0 +1,15 @@
+{
+    "category": "Import",
+    "country": "costa rica",
+    "countryCode": "cr",
+    "description": "Banco Promerica de Costa Rica - Import account statement (*.csv)",
+    "description.en": "Banco Promerica de Costa Rica - Import account statement (*.csv)",
+    "description.es": "Banco Promerica de Costa Rica - Importar estado de cuenta (*.csv)",
+    "id": "ch.banana.uni.import.chase",
+    "language": "en",
+    "publisher": "Banana.ch",
+    "title": "Banco Promerica de Costa Rica - Import account statement (*.csv)",
+    "title.en": "Banco Promerica de Costa Rica - Import account statement (*.csv)",
+    "title.es": "Banco Promerica de Costa Rica - Importar estado de cuenta (*.csv)",
+    "version": "1.0"
+}
