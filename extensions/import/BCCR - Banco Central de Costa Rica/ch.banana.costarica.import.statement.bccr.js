@@ -35,6 +35,8 @@ function exec(inData, isTest) {
     if (isTest !== true && !importUtilities.verifyBananaAdvancedVersion())
         return "";
 
+    Banana.console.log("Data to import: " + inData);
+
     // Central Bank statement format 1
     let bccrBankStatement1 = new BCCRBankStatementFormat1()
     let formB1 = bccrBankStatement1.getFormattedData(inData, importUtilities);
@@ -55,7 +57,7 @@ var BCCRBankStatementFormat1 = class BCCRBankStatementFormat1 {
     }
 
     getFormattedData(inData, importUtilities) {
-        let transactions = Banana.Converter.csvToArray(inData, "\t", '');
+        let transactions = Banana.Converter.csvToArray(inData, ";", '');
         let columns = importUtilities.getHeaderData(transactions, this.headerLineStart); //array
         let rows = importUtilities.getRowData(transactions, this.dataLineStart); //array of array
         let form = [];
@@ -74,7 +76,7 @@ var BCCRBankStatementFormat1 = class BCCRBankStatementFormat1 {
 
             var formatMatched = false;
 
-            if (transaction["Fecha"] && transaction["Fecha"].match(/^[0-9]+\/[0-9]+\/[0-9]+$/))
+            if (transaction["Fecha Movimiento"] && transaction["Fecha Movimiento"].substring(0, 10).match(/^[0-9]+\/[0-9]+\/[0-9]+$/))
                 formatMatched = true;
             else
                 formatMatched = false;
@@ -96,7 +98,7 @@ var BCCRBankStatementFormat1 = class BCCRBankStatementFormat1 {
 
         // Filter and map rows
         for (const tr of transactionsData) {
-            if ((tr["Fecha"] && tr["Fecha"].match(/^[0-9]+\/[0-9]+\/[0-9]+$/)) && tr["Referencia"]) {
+            if ((tr["Fecha Movimiento"] && tr["Fecha Movimiento"].substring(0, 10).match(/^[0-9]+\/[0-9]+\/[0-9]+$/)) && tr["Referencia"]) {
                 transactionsToImport.push(this.mapTransaction(tr));
             }
         }
@@ -110,7 +112,7 @@ var BCCRBankStatementFormat1 = class BCCRBankStatementFormat1 {
 
     mapTransaction(transaction) {
         var mappedLine = [];
-        mappedLine.push(Banana.Converter.toInternalDateFormat(transaction["Fecha"], this.dateFormat));
+        mappedLine.push(Banana.Converter.toInternalDateFormat(transaction["Fecha Movimiento"].substring(0, 10), this.dateFormat));
         mappedLine.push(this.getDescription(transaction));
         mappedLine.push(transaction["Referencia"]);
         
