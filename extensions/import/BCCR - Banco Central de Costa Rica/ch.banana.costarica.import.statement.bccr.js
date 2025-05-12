@@ -57,7 +57,14 @@ var BCCRBankStatementFormat1 = class BCCRBankStatementFormat1 {
     }
 
     getFormattedData(inData, importUtilities) {
-        let transactions = Banana.Converter.csvToArray(inData, ";", '');
+        let header = String(inData[0]);
+        let separator = ";";
+        if (header.indexOf(",") >= 0) {
+            separator = ",";
+        } else if (header.indexOf(";") >= 0) {
+            separator = ";";
+        } 
+        let transactions = Banana.Converter.csvToArray(inData, separator, '');
         let columns = importUtilities.getHeaderData(transactions, this.headerLineStart); //array
         let rows = importUtilities.getRowData(transactions, this.dataLineStart); //array of array
         let form = [];
