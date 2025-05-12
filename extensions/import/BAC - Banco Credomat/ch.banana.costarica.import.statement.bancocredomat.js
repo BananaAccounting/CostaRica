@@ -149,6 +149,6 @@ var CredomaticBankStatementFormat1 = class CredomaticBankStatementFormat1 {
     getDescription(transaction) {
         const description = transaction["Descripción"];
         let completeDescription = description;
-        return completeDescription.trim();
+        return completeDescription;
     }
 }
