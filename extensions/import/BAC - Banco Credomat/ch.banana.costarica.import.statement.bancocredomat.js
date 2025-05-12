@@ -35,7 +35,6 @@ function exec(inData, isTest) {
     if (isTest !== true && !importUtilities.verifyBananaAdvancedVersion())
         return "";
 
-    Banana.console.log("inData: " + inData);
     // Credomatic Bank statement format 1
     let credomaticBankStatement1 = new CredomaticBankStatementFormat1()
     let formB1 = credomaticBankStatement1.getFormattedData(inData, importUtilities);
