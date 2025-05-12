@@ -59,8 +59,8 @@ TestImportBancoCredomat.prototype.cleanup = function () {
 TestImportBancoCredomat.prototype.testImport = function () {
    var fileNameList = [];
 
-   fileNameList.push("file:script/../test/testcases/csv_promerica_example_format1_CRC_20250508.csv");
-   fileNameList.push("file:script/../test/testcases/csv_promerica_example_format1_USD_20250508.csv");
+   fileNameList.push("file:script/../test/testcases/csv_banco_credomat_example_format1_CRC_20250508.csv");
+   fileNameList.push("file:script/../test/testcases/csv_banco_credomat_example_format1_USD_20250508.csv");
 
    var parentLogger = this.testLogger;
    this.progressBar.start(fileNameList.length);

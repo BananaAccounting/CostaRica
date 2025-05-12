@@ -35,6 +35,7 @@ function exec(inData, isTest) {
     if (isTest !== true && !importUtilities.verifyBananaAdvancedVersion())
         return "";
 
+    Banana.console.log("inData: " + inData);
     // Credomatic Bank statement format 1
     let credomaticBankStatement1 = new CredomaticBankStatementFormat1()
     let formB1 = credomaticBankStatement1.getFormattedData(inData, importUtilities);
@@ -65,8 +66,23 @@ var CredomaticBankStatementFormat1 = class CredomaticBankStatementFormat1 {
         this.dataLineStart = 15;
     }
 
+    
+
     getFormattedData(inData, importUtilities) {
-        let transactions = Banana.Converter.csvToArray(inData, "\t", '');
+        var header = String(inData[0]);
+        let separator = '';
+        if (header.indexOf('\t') >= 0) {
+            separator = '\t';
+            this.headerLineStart = 13;
+            this.dataLineStart = 15;
+        }
+        else {
+            separator = ',';
+            this.headerLineStart = 12;
+            this.dataLineStart = 14;
+        }
+
+        let transactions = Banana.Converter.csvToArray(inData, separator, '');
         let columns = importUtilities.getHeaderData(transactions, this.headerLineStart); //array
         let rows = importUtilities.getRowData(transactions, this.dataLineStart); //array of array
         let form = [];
