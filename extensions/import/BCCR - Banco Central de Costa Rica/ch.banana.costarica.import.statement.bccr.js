@@ -35,8 +35,6 @@ function exec(inData, isTest) {
     if (isTest !== true && !importUtilities.verifyBananaAdvancedVersion())
         return "";
 
-    Banana.console.log("Data to import: " + inData);
-
     // Central Bank statement format 1
     let bccrBankStatement1 = new BCCRBankStatementFormat1()
     let formB1 = bccrBankStatement1.getFormattedData(inData, importUtilities);
