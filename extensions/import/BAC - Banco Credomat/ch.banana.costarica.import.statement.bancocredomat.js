@@ -72,13 +72,9 @@ var CredomaticBankStatementFormat1 = class CredomaticBankStatementFormat1 {
         let separator = '';
         if (header.indexOf('\t') >= 0) {
             separator = '\t';
-            this.headerLineStart = 13;
-            this.dataLineStart = 15;
         }
         else {
             separator = ',';
-            this.headerLineStart = 12;
-            this.dataLineStart = 14;
         }
 
         let transactions = Banana.Converter.csvToArray(inData, separator, '');
@@ -137,7 +133,7 @@ var CredomaticBankStatementFormat1 = class CredomaticBankStatementFormat1 {
     mapTransaction(transaction) {
         var mappedLine = [];
         mappedLine.push(Banana.Converter.toInternalDateFormat(transaction["Fecha"], this.dateFormat));
-        mappedLine.push(this.getDescription(transaction));
+        mappedLine.push(transaction["Descripción"]);
         mappedLine.push(transaction["Código"]);       
         mappedLine.push(Banana.Converter.toInternalNumberFormat(transaction['Créditos'], "."));
         mappedLine.push(Banana.Converter.toInternalNumberFormat(transaction['Débitos'], "."));            
