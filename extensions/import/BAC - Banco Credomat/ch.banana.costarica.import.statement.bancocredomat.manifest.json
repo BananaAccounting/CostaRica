@@ -5,7 +5,7 @@
     "description": "Banco Credomat - Import account statement (*.csv)",
     "description.en": "Banco Credomat - Import account statement (*.csv)",
     "description.es": "Banco Credomat - Importar estado de cuenta (*.csv)",
-    "id": "ch.banana.uni.import.chase",
+    "id": "ch.banana.costarica.import.statement.bancocredomat",
     "language": "en",
     "publisher": "Banana.ch",
     "title": "Banco Credomat - Import account statement (*.csv)",
