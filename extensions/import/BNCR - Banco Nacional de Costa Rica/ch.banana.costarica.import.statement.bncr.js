@@ -37,6 +37,7 @@ function exec(inData, isTest) {
   // Banco Nacional de Costa Rica statement format 1
   let bncrBankStatement1 = new BNCRBankStatementFormat1();
   let formB1 = bncrBankStatement1.getFormattedData( inData, importUtilities);
+
   if (bncrBankStatement1.match(formB1))
     return Banana.Converter.arrayToTsv(
         bncrBankStatement1.convertCsvToIntermediaryData(formB1)
@@ -54,14 +55,7 @@ var BNCRBankStatementFormat1 = class BNCRBankStatementFormat1 {
   }
 
   getFormattedData(inData, importUtilities) {
-    let separator = ";";
-    let header = String(inData[0]);
-    if (header.indexOf(';') >= 0) {
-        separator = ';';
-     } else {
-        separator = ',';
-     }
-    let transactions = Banana.Converter.csvToArray(inData, separator, "");
+    let transactions = Banana.Converter.csvToArray(inData, ";", "");
     let columns = importUtilities.getHeaderData(transactions, this.headerLineStart); //array
     let rows = importUtilities.getRowData(transactions, this.dataLineStart); //array of array
     let form = [];
@@ -71,12 +65,14 @@ var BNCRBankStatementFormat1 = class BNCRBankStatementFormat1 {
   }
 
   match(transactionsData) {
-    if (!transactionsData || transactionsData.length === 0) return false;
+    if (!transactionsData || transactionsData.length === 0) 
+      return false;
 
     for (let i = 0; i < transactionsData.length; i++) {
       var transaction = transactionsData[i];
 
       var formatMatched = false;
+      // Banana.console.log("transaction: " + JSON.stringify(transaction));
 
       if (
         transaction["fechaMovimiento"] &&
@@ -111,8 +107,6 @@ var BNCRBankStatementFormat1 = class BNCRBankStatementFormat1 {
         transactionsToImport.push(this.mapTransaction(tr));
       }
     }
-    // Sort rows by date
-    //transactionsToImport = transactionsToImport.reverse();
 
     // Add header and return
     var header = [
