@@ -66,6 +66,10 @@ var CredomaticBankStatementFormat1 = class CredomaticBankStatementFormat1 {
         }
 
         let transactions = Banana.Converter.csvToArray(inData, separator, '');
+
+        if (!transactions || transactions.length === 0 || transactions.length < this.dataLineStart || transactions.length < this.headerLineStart)
+            return [];
+
         let columns = importUtilities.getHeaderData(transactions, this.headerLineStart); //array
         let rows = importUtilities.getRowData(transactions, this.dataLineStart); //array of array
         let form = [];
