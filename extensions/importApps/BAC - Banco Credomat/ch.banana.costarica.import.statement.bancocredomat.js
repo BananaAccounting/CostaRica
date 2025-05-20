@@ -14,11 +14,11 @@
 //
 // @id = ch.banana.costarica.import.statement.bancocredomat
 // @api = 1.0
-// @pubdate = 2025-05-10
+// @pubdate = 2025-05-20
 // @publisher = Banana.ch SA
-// @description = Banco Credomat - Import account statement (*.csv)
-// @description.en = Banco Credomat - Import account statement (*.csv)
-// @description.es = Banco Credomat - Importar estado de cuenta (*.csv)
+// @description = Banco Credomat - Import account statement (*.xls/*.xlsx)
+// @description.en = Banco Credomat - Import account statement (*.xls/*.xlsx)
+// @description.es = Banco Credomat - Importar estado de cuenta (*.xls/*.xlsx)
 // @doctype = *
 // @docproperties =
 // @task = import.transactions
@@ -41,18 +41,6 @@ function exec(inData, isTest) {
     if (credomaticBankStatement1.match(formB1))
         return Banana.Converter.arrayToTsv(credomaticBankStatement1.convertCsvToIntermediaryData(formB1));
 
-    /* Promerica Credit Card statement format.
-
-    This format is not implemented yet as the transactions provided by the bank are in multiple currencies (CRC and USD) but each transaction
-    is just in one currency without any exchange rate. The ideal would be to have for each transactions the amount in both currencies to be able
-    at leat to decide to use the one or the other.
-    
-    let promericaCardStatement1 = new PromericaCardStatementFormat1()
-    let formC1 = promericaCardStatement1.getFormattedData(inData, importUtilities);
-    if (promericaCardStatement1.match(form))
-        return Banana.Converter.arrayToTsv(promericaCardStatement1.convertCsvToIntermediaryData(form));
-    **/
-
 
     importUtilities.getUnknownFormatError();
     return "";
@@ -65,7 +53,7 @@ var CredomaticBankStatementFormat1 = class CredomaticBankStatementFormat1 {
         this.dataLineStart = 15;
     }
 
-    
+
 
     getFormattedData(inData, importUtilities) {
         var header = String(inData[0]);
@@ -134,10 +122,10 @@ var CredomaticBankStatementFormat1 = class CredomaticBankStatementFormat1 {
         var mappedLine = [];
         mappedLine.push(Banana.Converter.toInternalDateFormat(transaction["Fecha"], this.dateFormat));
         mappedLine.push(transaction["Descripción"]);
-        mappedLine.push(transaction["Código"]);       
+        mappedLine.push(transaction["Referencia"]);
         mappedLine.push(Banana.Converter.toInternalNumberFormat(transaction['Créditos'], "."));
-        mappedLine.push(Banana.Converter.toInternalNumberFormat(transaction['Débitos'], "."));            
-       
+        mappedLine.push(Banana.Converter.toInternalNumberFormat(transaction['Débitos'], "."));
+
         return mappedLine;
     }
 
