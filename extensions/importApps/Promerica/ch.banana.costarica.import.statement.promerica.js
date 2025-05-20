@@ -16,9 +16,9 @@
 // @api = 1.0
 // @pubdate = 2025-05-08
 // @publisher = Banana.ch SA
-// @description = Banco Promerica de Costa Rica - Import account statement (*.csv)
-// @description.en = Banco Promerica de Costa Rica - Import account statement (*.csv)
-// @description.es = Banco Promerica de Costa Rica - Importar estado de cuenta (*.csv)
+// @description = Banco Promerica de Costa Rica - Import account statement (*.xls/*.xlsx)
+// @description.en = Banco Promerica de Costa Rica - Import account statement (*.xls/*.xlsx)
+// @description.es = Banco Promerica de Costa Rica - Importar estado de cuenta (*.xls/*.xlsx)
 // @doctype = *
 // @docproperties =
 // @task = import.transactions
@@ -67,6 +67,10 @@ var PromericaBankStatementFormat1 = class PromericaBankStatementFormat1 {
 
     getFormattedData(inData, importUtilities) {
         let transactions = Banana.Converter.csvToArray(inData, "\t", '');
+
+        if (!transactions || transactions.length === 0 || transactions.length < this.dataLineStart || transactions.length < this.headerLineStart)
+            return [];
+
         let columns = importUtilities.getHeaderData(transactions, this.headerLineStart); //array
         let rows = importUtilities.getRowData(transactions, this.dataLineStart); //array of array
         let form = [];

@@ -227,7 +227,17 @@ var ImportUtilities = class ImportUtilities {
 
         if (!Banana.application.license || Banana.application.license.licenseType !== "advanced") {
             var lang = this.getLang();
-            var msg = "This extension requires Banana Accounting+ Advanced";
+            let msg = "";
+            if (lang == 'it')
+                msg = "Questa estensione richiede Banana Accounting+ Advanced";
+            else if (lang == 'fr')
+                msg = "Cette extension nécessite Banana Accounting+ Advanced";
+            else if (lang == 'de')
+                msg = "Diese Erweiterung erfordert Banana Accounting+ Advanced";
+            else if (lang == 'es')
+                msg = "Esta extensión requiere Banana Accounting+ Avanzado";
+            else
+                msg = "This extension requires Banana Accounting+ Advanced";
             this.banDocument.addMessage(msg, "ID_ERR_LICENSE_NOTVALID");
             return false;
         }
@@ -245,6 +255,8 @@ var ImportUtilities = class ImportUtilities {
                     return "Format de fichier *.csv non reconnu";
                 else if (lang == 'de')
                     return "Unerkanntes *.csv-Dateiformat";
+                else if (lang == 'es')
+                    return "Formato de archivo .csv no reconocido";
                 else
                     return "Unrecognised *.csv file format";
         }
