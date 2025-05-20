@@ -1,0 +1,7 @@
+<RCC>
+	<qresource prefix="/">
+		<file>ch.banana.costarica.import.statement.bancocredomat.manifest.json</file>
+		<file>../import.utilities.js</file>
+		<file>ch.banana.costarica.import.statement.bancocredomat.js</file>
+	</qresource>
+</RCC>

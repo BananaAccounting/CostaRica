@@ -1,0 +1,15 @@
+{
+    "category": "Import",
+    "country": "costa rica",
+    "countryCode": "cr",
+    "description": "Banco Credomat - Import account statement (*.csv)",
+    "description.en": "Banco Credomat - Import account statement (*.csv)",
+    "description.es": "Banco Credomat - Importar estado de cuenta (*.csv)",
+    "id": "ch.banana.costarica.import.statement.bancocredomat",
+    "language": "en",
+    "publisher": "Banana.ch",
+    "title": "Banco Credomat - Import account statement (*.csv)",
+    "title.en": "Banco Credomat - Import account statement (*.csv)",
+    "title.es": "Banco Credomat - Importar estado de cuenta (*.csv)",
+    "version": "1.0"
+}
