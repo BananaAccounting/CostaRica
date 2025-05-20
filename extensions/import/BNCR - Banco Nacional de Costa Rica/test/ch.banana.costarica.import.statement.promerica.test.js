@@ -16,7 +16,7 @@
 
 // @id = ch.banana.costarica.import.statement.bncr
 // @api = 1.0
-// @pubdate = 2023-05-19
+// @pubdate = 2025-05-19
 // @publisher = Banana.ch SA
 // @description = <TEST ch.banana.costarica.import.statement.bncr.test>
 // @task = app.command
