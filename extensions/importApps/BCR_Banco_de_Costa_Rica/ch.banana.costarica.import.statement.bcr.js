@@ -16,9 +16,9 @@
 // @api = 1.0
 // @pubdate = 2025-05-26
 // @publisher = Banana.ch SA
-// @description = Banco de Costa Rica - Import account statement (*.csv)
-// @description.en = Banco de Costa Rica - Import account statement (*.csv)
-// @description.es = Banco de Costa Rica - Importar estado de cuenta (*.csv)
+// @description = Banco de Costa Rica - Import account statement (*.xls/*.xlsx)
+// @description.en = Banco de Costa Rica - Import account statement (*.xls/*.xlsx)
+// @description.es = Banco de Costa Rica - Importar estado de cuenta (*.xls/*.xlsx)
 // @doctype = *
 // @docproperties =
 // @task = import.transactions
