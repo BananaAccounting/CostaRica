@@ -1,0 +1,15 @@
+{
+    "category": "Import",
+    "country": "costa rica",
+    "countryCode": "cr",
+    "description": "Scotiabank de Costa Rica - Import account statement (*.csv)",
+    "description.en": "Scotiabank de Costa Rica - Import account statement (*.csv)",
+    "description.es": "Scotiabank de Costa Rica - Importar estado de cuenta (*.csv)",
+    "id": "ch.banana.costarica.import.statement.scotiabank",
+    "language": "en",
+    "publisher": "Banana.ch",
+    "title": "Scotiabank de Costa Rica - Import account statement (*.csv)",
+    "title.en": "Scotiabank de Costa Rica - Import account statement (*.csv)",
+    "title.es": "Scotiabank de Costa Rica - Importar estado de cuenta (*.csv)",
+    "version": "1.0"
+}

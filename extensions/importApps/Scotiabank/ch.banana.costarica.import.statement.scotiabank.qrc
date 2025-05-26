@@ -1,0 +1,7 @@
+<RCC>
+	<qresource prefix="/">
+		<file>ch.banana.costarica.import.statement.scotiabank.manifest.json</file>
+		<file>../import.utilities.js</file>
+		<file>ch.banana.costarica.import.statement.scotiabank.js</file>
+	</qresource>
+</RCC>
