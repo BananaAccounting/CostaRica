@@ -1,7 +1,0 @@
-<RCC>
-	<qresource prefix="/">
-		<file>ch.banana.costarica.import.statement.bccr.manifest.json</file>
-		<file>../import.utilities.js</file>
-		<file>ch.banana.costarica.import.statement.bccr.js</file>
-	</qresource>
-</RCC>
