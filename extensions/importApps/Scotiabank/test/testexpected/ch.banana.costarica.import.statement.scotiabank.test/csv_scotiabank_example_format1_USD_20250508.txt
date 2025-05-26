@@ -1,0 +1,33 @@
+%%info_test_name{csv_scotiabank_example_format1_USD_20250508}
+\documentclass{report}
+\usepackage{longtable}
+\usepackage{color}
+\usepackage{listings}
+\usepackage[margin=1cm]{geometry}
+\begin{document}
+\newenvironment{tablevalue}[2]{\textbf{Table: #1}\begin{longtable}[l]{#2}}{\end{longtable}}
+\newenvironment{reportvalue}[1]{\textbf{Report: #1}\\}{}
+\lstnewenvironment{jsonvalue}[1]{\textbf{Json: #1}\lstset{language=Java}}{}
+\lstnewenvironment{xmlvalue}[1]{\textbf{Xml: #1}\lstset{language=Xml}}{}
+\newcommand{\info}[2]{\textit{#1: #2}\\}
+\newcommand{\fatalerror}[1]{\textbf{\textcolor[rgb]{1,0,0}{Fatal error: #1}}\\}
+\newcommand{\keyvalue}[2]{\textbf{Keyvalue: #1} #2\\}
+\newcommand{\textvalue}[1]{#1\\}
+\newcommand{\excltest}[1]{\\Excluded from compare: #1}
+\newcommand{\lognewpage}{\newpage}
+\newenvironment{testcase}[1]{\section*{Test: #1}}{\newpage}
+\newenvironment{test}[1]{\section*{Test case: #1}}{}
+%Begin test data
+\begin{tablevalue}{}{ l  l  l  l  l }
+Date & Description & ExternalReference & Income & Expenses\\
+2024-11-06 & pg fac 371313 carrofacil & 10460631 & 316.40 & \\
+2024-11-12 & 3101348298 Cl. 12990 Fra 372048 & 12009082 & 111.45 & \\
+2024-11-14 & Pago FE 4360 & 8287434 &  & 1044.46\\
+2024-11-21 & cancela fact 374322 hosting arqavi dic 2024 & 5322182 & 22.59 & \\
+2024-11-22 & PAGO CYBERFUEL NOV & 11563924 & 27.11 & \\
+2024-11-27 & FT 374215 DE CF FREE & 15013726 & 30.00 & \\
+2024-11-29 & DTR BAC A SCOTIABANK DOLARES & 17207678 & 4000.00 & \\
+2024-11-29 & Pago FE 4347 & 11519926 &  & 5272.40\\
+\\
+\end{tablevalue}
+\end{document}
