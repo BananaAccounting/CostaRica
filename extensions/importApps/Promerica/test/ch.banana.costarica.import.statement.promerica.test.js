@@ -59,6 +59,7 @@ TestImportPromerica.prototype.cleanup = function () {
 TestImportPromerica.prototype.testImport = function () {
    var fileNameList = [];
 
+   fileNameList.push("file:script/../test/testcases/csv_from_excel_promerica_example_format1_CRC_20250508.csv");
    fileNameList.push("file:script/../test/testcases/csv_promerica_example_format1_CRC_20250508.csv");
    fileNameList.push("file:script/../test/testcases/csv_promerica_example_format1_USD_20250508.csv");
 
