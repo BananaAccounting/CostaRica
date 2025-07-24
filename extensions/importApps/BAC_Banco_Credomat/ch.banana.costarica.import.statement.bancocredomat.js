@@ -56,16 +56,16 @@ var CredomaticBankStatementFormat1 = class CredomaticBankStatementFormat1 {
 
 
     getFormattedData(inData, importUtilities) {
-        var header = String(inData[0]);
-        let separator = '';
-        if (header.indexOf('\t') >= 0) {
-            separator = '\t';
-        }
-        else {
-            separator = ',';
-        }
+        let separator = findSeparator(inData);
 
         let transactions = Banana.Converter.csvToArray(inData, separator, '');
+
+        for (let i = 0; i < transactions[0].length; i++) {
+            if (transactions[0][i].length !== 0) {
+                this.headerLineStart = 12;
+                this.dataLineStart = 14;
+            }
+        }
 
         if (!transactions || transactions.length === 0 || transactions.length < this.dataLineStart || transactions.length < this.headerLineStart)
             return [];
@@ -138,4 +138,35 @@ var CredomaticBankStatementFormat1 = class CredomaticBankStatementFormat1 {
         let completeDescription = description;
         return completeDescription;
     }
+}
+
+/**
+ * The function findSeparator is used to find the field separator.
+ */
+function findSeparator( string) {
+
+	var commaCount=0;
+	var semicolonCount=0;
+	var tabCount=0;
+	
+    for(var i = 0; i < 1000 && i < string.length; i++) {
+        var c = string[i];
+        if (c === ',')
+			commaCount++;
+        else if (c === ';')
+			semicolonCount++;
+        else if (c === '\t')
+			tabCount++;
+	}
+	
+	if (tabCount > commaCount && tabCount > semicolonCount)
+	{
+		return '\t';
+	}
+	else if (semicolonCount > commaCount)
+	{
+		return ';';
+	}
+
+	return ',';
 }
