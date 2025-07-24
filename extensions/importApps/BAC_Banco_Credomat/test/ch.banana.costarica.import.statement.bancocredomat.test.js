@@ -61,6 +61,7 @@ TestImportBancoCredomat.prototype.testImport = function () {
 
    fileNameList.push("file:script/../test/testcases/csv_banco_credomat_example_format1_CRC_20250508.csv");
    fileNameList.push("file:script/../test/testcases/csv_banco_credomat_example_format1_USD_20250508.csv");
+   fileNameList.push("file:script/../test/testcases/csv_banco_credomat_example_from_excel_format1_20250508.csv");
 
    var parentLogger = this.testLogger;
    this.progressBar.start(fileNameList.length);
