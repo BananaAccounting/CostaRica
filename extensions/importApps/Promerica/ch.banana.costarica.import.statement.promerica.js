@@ -66,7 +66,12 @@ var PromericaBankStatementFormat1 = class PromericaBankStatementFormat1 {
     }
 
     getFormattedData(inData, importUtilities) {
-        let transactions = Banana.Converter.csvToArray(inData, "\t", '');
+        let transactions = Banana.Converter.csvToArray(inData, findSeparator(inData), '');
+        
+        if (transactions[0][0].length !== 0) { // Check if the first line is not empty
+            this.headerLineStart = 10; 
+            this.dataLineStart = 12; 
+        }
 
         if (!transactions || transactions.length === 0 || transactions.length < this.dataLineStart || transactions.length < this.headerLineStart)
             return [];
@@ -89,7 +94,7 @@ var PromericaBankStatementFormat1 = class PromericaBankStatementFormat1 {
 
             var formatMatched = false;
 
-            if (transaction["Fecha"] && transaction["Fecha"].match(/^[0-9]+\.[0-9]+\.[0-9]+$/))
+            if (transaction["Fecha"] && transaction["Fecha"].match(/^[0-9]{1,2}(\.[0-9]{1,2}\.[0-9]{2,4}|\/[0-9]{1,2}\/[0-9]{2,4})$/))
                 formatMatched = true;
             else
                 formatMatched = false;
@@ -111,7 +116,7 @@ var PromericaBankStatementFormat1 = class PromericaBankStatementFormat1 {
 
         // Filter and map rows
         for (const tr of transactionsData) {
-            if ((tr["Fecha"] && tr["Fecha"].match(/^[0-9]+\.[0-9]+\.[0-9]+$/)) && tr["Documento"]) {
+            if ((tr["Fecha"] && tr["Fecha"].match(/^[0-9]{1,2}(\.[0-9]{1,2}\.[0-9]{2,4}|\/[0-9]{1,2}\/[0-9]{2,4})$/)) && tr["Documento"]) {
                 transactionsToImport.push(this.mapTransaction(tr));
             }
         }
@@ -153,4 +158,35 @@ var PromericaBankStatementFormat1 = class PromericaBankStatementFormat1 {
         }
         return completeDescription.trim();
     }
+}
+
+/**
+ * The function findSeparator is used to find the field separator.
+ */
+function findSeparator(string) {
+
+	var commaCount=0;
+	var semicolonCount=0;
+	var tabCount=0;
+	
+    for(var i = 0; i < 1000 && i < string.length; i++) {
+        var c = string[i];
+        if (c === ',')
+			commaCount++;
+        else if (c === ';')
+			semicolonCount++;
+        else if (c === '\t')
+			tabCount++;
+	}
+	
+	if (tabCount > commaCount && tabCount > semicolonCount)
+	{
+		return '\t';
+	}
+	else if (semicolonCount > commaCount)
+	{
+		return ';';
+	}
+
+	return ',';
 }
